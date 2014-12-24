@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
- 
-
 namespace Minesweeper{
     class GameTable{
         private Node[,]table;
@@ -117,15 +115,14 @@ namespace Minesweeper{
         }
 
         public void bombFields(int x, int y){
-            Random random = new Random();
             int randomNumberRows;
             int randomNumberColumns;
 
             for(int i = 0; i<bombs; i++){
 				bool flag = false;
 				while(flag == false){
-					randomNumberRows = random.Next(0, Rows);
-					randomNumberColumns = random.Next(0, Columns);
+					randomNumberRows = RandomUtil.GetRandomNumber (0, Rows);
+					randomNumberColumns = RandomUtil.GetRandomNumber (0, Columns);
 
 					if (this.table [randomNumberRows, randomNumberColumns].Key != 10 &&
 					    (randomNumberRows != x && randomNumberColumns!=y)) {
@@ -180,5 +177,3 @@ namespace Minesweeper{
 		}
     }   
 }
-
-

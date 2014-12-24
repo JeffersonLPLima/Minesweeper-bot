@@ -44,10 +44,39 @@ namespace Minesweeper{
 		}
 
         public Game(String player1, int tableRows, int tableColumns){
-            this.player1 = new Player(player1);
+            this.player1 = new Human(player1);
+			this.player2 = new Bot ("B0T M4sT3R");
+
             this.table = new GameTable(tableRows, tableColumns);
             this.lastRound = new int[2];
         }
+
+		public void update2(){
+			Player player = getTurnPlayer(); //Current player
+
+			Position pos = move(player);
+
+			if (this.table.setPos (pos.X, pos.Y)) {
+				Console.Clear ();
+				Console.WriteLine ("Ultima posicao jogada = X: "+pos.X+" Y: "+pos.Y);
+				this.Table.printMatrix ();
+
+				if(table.NodesRemaining == 0){
+					Console.WriteLine ("Empate");
+					Console.WriteLine ("Pressione qualquer tecla para continuar");
+					Console.ReadLine ();
+
+					this.Table.showBombs ();
+
+					active = false;
+				}
+			} else {
+				Console.Clear ();
+				this.Table.showBombs ();
+				Console.WriteLine ("Voce perdeu "+player.Name+"!");
+				active = false;
+			}
+		}
 
         public void update(){
 			int x, y;
@@ -97,16 +126,13 @@ namespace Minesweeper{
 			table.printMatrix();
 
 			//First move
-			Console.Write ("Linha: ");
-			int x = Convert.ToInt32(Console.ReadLine());
-			Console.Write ("Coluna: ");
-			int y = Convert.ToInt32(Console.ReadLine());
+			Position pos = move (getTurnPlayer());
 
 			Console.Clear();
 
-			table.bombFields (x,y);
+			table.bombFields (pos.Y,pos.Y);
 			table.setNodeKeys ();
-			table.expand(table.Table[x, y]);
+			table.expand(table.Table[pos.X, pos.Y]);
 
 			table.printMatrix();
 		}
@@ -118,10 +144,42 @@ namespace Minesweeper{
 			while (active) {
 				Console.WriteLine ("Bombas: "+this.table.Bombs);
 				Console.WriteLine ("Casas restantes: "+this.table.NodesRemaining);
-				update ();
+				update2 ();
 
 			}
 			//unload ();
+		}
+
+		public Player getTurnPlayer(){
+			if (round % 2 == 0) {
+				return player1;	
+			} else {
+				return player2;
+			}
+		}
+
+		private Position move(Player player){
+			//Player player = getTurnPlayer(); //Current player
+
+			bool flag = false;
+			Position pos;
+			do {
+				pos = player.play ();
+				Console.Write ("Linha: "+pos.X);
+				Console.Write ("Coluna: "+pos.Y);
+				Console.WriteLine("");
+
+				if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) && 
+				    (!this.table.Table [pos.X, pos.Y].Visited)) {
+					flag = true;
+				}
+			} while(!flag);
+
+			this.round += 1;
+			this.lastRound[0] = pos.X;
+			this.lastRound [1] = pos.Y;
+
+			return pos;
 		}
     }
 }
