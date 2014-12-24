@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Minesweeper
-{
-    class Player
-    {
+namespace Minesweeper{
+    class Player{
         private String name;
-        private String Name
-        {
+        private String Name{
             get { return name; }
             set { name = value; }
         }
 
-        public Player(String name)
-        {
+        public Player(String name){
             this.name = name;
         }
 
@@ -24,8 +20,6 @@ namespace Minesweeper
             /*if(x>=0 && x<rows){
 
             }*/
-            
-            
             return false;
         }
     }

@@ -10,11 +10,9 @@ namespace Minesweeper{
     class GameTable{
         private Node[,]table;
         private int bombs;
-        private int bombs_Remaining;
         private int rows;
         private int columns;
         private int nodesRemaining;
-
 
         public Node[,] Table{
             get { return table; }
@@ -32,10 +30,14 @@ namespace Minesweeper{
         }
         
         public int Bombs { 
-            get { return Bombs; }
-            set { Bombs = value; }
+            get { return bombs; }
+            set { bombs = value; }
         }
-      
+
+		public int NodesRemaining { 
+			get { return nodesRemaining; }
+			set { nodesRemaining = value; }
+		}
 
         public GameTable(int rows, int columns){
             int k;
@@ -56,15 +58,15 @@ namespace Minesweeper{
                     for (int ii = i - 1; ii <= i + 1; ii++){
                         //Console.WriteLine("ii =  " + ii);
                         for (int jj = j - 1; jj <= j + 1; jj++){
-                            Console.WriteLine("ii =  " + ii);
-                            Console.WriteLine("jj =  " + jj);
+                            //Console.WriteLine("ii =  " + ii);
+                            //Console.WriteLine("jj =  " + jj);
                             //Console.ReadLine();
                             if (!((jj == j)&(ii == i))) {
                                 if ((ii == -1) || (ii == this.Rows) || (jj == -1) || (jj == this.Columns )){
                                     this.table[i, j].Vizinhanca.Add(null);
                                 }
                                 else{
-                                    Console.WriteLine("entrou");
+                                    //Console.WriteLine("entrou");
                                     this.table[i, j].Vizinhanca.Add(this.table[ii, jj]);
                                     //Console.WriteLine(this.table[i, j].Vizinhanca.Count);
                                     //this.table[i,j].Vizinhanca[k] = this.table[ii,jj];
@@ -94,37 +96,50 @@ namespace Minesweeper{
         }
 
         public void printMatrix(){
-            for(int i = 0; i<rows; i++){
-                for (int j = 0; j < columns; j++){
-                    if (table[i, j].Visited) { 
-                        Console.Write("| " + table[i, j].Key + " |");
-                    }
-                    else
-                    {
-                        Console.Write("|   |");
-                    }
-                    
+			Console.WriteLine ("======== Campo Minado ========");
+			Console.Write (" ]");
+			for (int j = 0; j < columns; j++) {
+				Console.Write ("| "+j+" |");	
+			}
+			Console.WriteLine ();
+
+			for(int i = 0; i<rows; i++){
+				Console.Write(i + "]");
+				for (int j = 0; j < columns; j++){
+					if (table [i, j].Visited) { 
+						Console.Write ("| " + table [i, j].Key + " |");
+					} else {
+						Console.Write ("|   |");
+					}
                 }
                 Console.WriteLine();
             }
         }
 
-        public void bombFields(){
+        public void bombFields(int x, int y){
             Random random = new Random();
             int randomNumberRows;
             int randomNumberColumns;
-            for(int i = 0; i<=bombs; i++){
-                randomNumberRows = random.Next(0, Rows);
-                randomNumberColumns = random.Next(0, Columns);
-                this.table[randomNumberRows,randomNumberColumns].Key = 10;
+
+            for(int i = 0; i<bombs; i++){
+				bool flag = false;
+				while(flag == false){
+					randomNumberRows = random.Next(0, Rows);
+					randomNumberColumns = random.Next(0, Columns);
+
+					if (this.table [randomNumberRows, randomNumberColumns].Key != 10 &&
+					    (randomNumberRows != x && randomNumberColumns!=y)) {
+						flag = true;
+						this.table[randomNumberRows,randomNumberColumns].Key = 10;
+					}
+				}
             }
-            this.table[5,5].Key = 10;
         }
 
         public void expand(Node node) {
             if (node != null && !node.Visited) {
                 node.Visited = true;
-                nodesRemaining -= 1;
+				this.nodesRemaining -= 1;
                 if(node.Key==0){
                     for (int i = 0; i < node.Vizinhanca.Count; i++) {
                         expand(node.Vizinhanca[i]);
@@ -135,10 +150,15 @@ namespace Minesweeper{
         }
 
         public void showBombs(){
+			Console.WriteLine ("======== Campo Minado ========");
             for (int i = 0; i < rows; i++){
                 for (int j = 0; j < columns; j++){
-                    if (table[i, j].Key == 10){
-                        Console.Write("| " + table[i, j].Key + " |");
+                    if (table[i, j].Key == 10 || table[i,j].Visited){
+						if (table [i, j].Key != 10) {
+							Console.Write ("| " + table [i, j].Key + " |");
+						} else {
+							Console.Write("| * |");
+						}
                     }
                     else{
                         Console.Write("|   |");
@@ -149,32 +169,15 @@ namespace Minesweeper{
             }
         }
 
+		public bool setPos(int x, int y){
+			if (this.table[x, y].Key != 10) {
+				this.expand(this.table[x,y]);
 
+				return true;
+			}
 
-        /*public void expandClickpoint(Node point){
-      
-            if ((point != null && !point.Visited))
-            {
-                point.Visited = true;
-                if (point.Key != 10)
-                {
-                    Console.WriteLine(point.Vizinhanca[1]);
-                    for (int i = 1; i < 8; i++)
-                    {
-                        Console.WriteLine(point.Vizinhanca[i]);
-                        if (point.Vizinhanca[i]!=null && point.Vizinhanca[i].Key < 10)
-                        {
-                            expandClickpoint(point.Vizinhanca[i]);
-                            break;
-                        }
-
-                        Console.WriteLine(123);
-
-                    }
-                }
-            }
-
-        }*/
+			return false;
+		}
     }   
 }
 
