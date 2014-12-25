@@ -42,13 +42,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.jogoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fácilToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.médioToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.difícilToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fácilToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.médioToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.difícilToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             panel2 = new System.Windows.Forms.Panel();
             panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -69,7 +69,7 @@
             panel2.Controls.Add(this.label1);
             panel2.Location = new System.Drawing.Point(12, 54);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(415, 101);
+            panel2.Size = new System.Drawing.Size(415, 102);
             panel2.TabIndex = 1;
             // 
             // label7
@@ -126,7 +126,7 @@
             this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(9, 22);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 74);
+            this.button1.Size = new System.Drawing.Size(75, 75);
             this.button1.TabIndex = 3;
             this.button1.UseVisualStyleBackColor = true;
             // 
@@ -196,13 +196,31 @@
             this.médioToolStripMenuItem1,
             this.difícilToolStripMenuItem1});
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.novoToolStripMenuItem.Text = "Novo";
+            // 
+            // fácilToolStripMenuItem1
+            // 
+            this.fácilToolStripMenuItem1.Name = "fácilToolStripMenuItem1";
+            this.fácilToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
+            this.fácilToolStripMenuItem1.Text = "Fácil";
+            // 
+            // médioToolStripMenuItem1
+            // 
+            this.médioToolStripMenuItem1.Name = "médioToolStripMenuItem1";
+            this.médioToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
+            this.médioToolStripMenuItem1.Text = "Médio";
+            // 
+            // difícilToolStripMenuItem1
+            // 
+            this.difícilToolStripMenuItem1.Name = "difícilToolStripMenuItem1";
+            this.difícilToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
+            this.difícilToolStripMenuItem1.Text = "Difícil";
             // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -226,24 +244,6 @@
             this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
             this.sobreToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
             this.sobreToolStripMenuItem.Text = "Sobre";
-            // 
-            // fácilToolStripMenuItem1
-            // 
-            this.fácilToolStripMenuItem1.Name = "fácilToolStripMenuItem1";
-            this.fácilToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
-            this.fácilToolStripMenuItem1.Text = "Fácil";
-            // 
-            // médioToolStripMenuItem1
-            // 
-            this.médioToolStripMenuItem1.Name = "médioToolStripMenuItem1";
-            this.médioToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
-            this.médioToolStripMenuItem1.Text = "Médio";
-            // 
-            // difícilToolStripMenuItem1
-            // 
-            this.difícilToolStripMenuItem1.Name = "difícilToolStripMenuItem1";
-            this.difícilToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
-            this.difícilToolStripMenuItem1.Text = "Difícil";
             // 
             // MinesweeperForm
             // 

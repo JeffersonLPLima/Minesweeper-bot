@@ -26,11 +26,13 @@ namespace Minesweeper
        private static String Img8 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/8.JPG";
        private static String mineImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/mina.jpg";
        private static String flagImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/flag.JPG";
-       
-        GameTable gameTable;
+
+       Game gameMine;
+        
         public MinesweeperForm()
         {
-           
+            gameMine = new Game("Player1", 7, 7);
+            gameMine.run();
             InitializeComponent();
         }
 
@@ -60,10 +62,10 @@ namespace Minesweeper
 
         private void MinesweeperForm_Load(object sender, EventArgs e)
         {
-       //  int matrizX = gameTable.Rows;
-        // int matrizY = gameTable.Columns;
-          int  matrizX = 32;
-          int matrizY = 32;
+            int matrizX = gameMine.Table.Rows;
+            int matrizY = gameMine.Table.Columns;
+        //  int  matrizX = 32;
+       // int matrizY = 32;
           Image img = Image.FromFile(noDesmImg);
             panelMatriz.Size = new Size(25 * matrizX, 25 * matrizY);
             panelMatriz.Visible = true;
@@ -77,11 +79,10 @@ namespace Minesweeper
                     btn[x][y].Name = Convert.ToString("casa" + x + "," + y);
                     btn[x][y].AccessibleName = "casa";
                     btn[x][y].Size = new Size(25, 25);
-                 //   .ImageLocation = @"C:\Users\Jefferson Luiz\Desktop\Rep-Minesweeper\minesweeper-plp\Minesweeper\Minesweeper\Forms\Images\casaInativa.JPG"; 
-
+                 
 
                     btn[x][y].Image = img;
-                  //  btn[x][y].Text = Convert.ToString(x+","+y);
+                  
                     btn[x][y].Visible = true;
                     btn[x][y].Location = new Point(x * 25, y * 25);
                     btn[x][y].Click += new EventHandler(this.btnEvent_Click);
@@ -100,11 +101,12 @@ namespace Minesweeper
 
 
 
-            
+           // Game game = new Game("Player1", 7, 7);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MinesweeperForm());
-
+        
+      //      game.run();
         }
 
         
