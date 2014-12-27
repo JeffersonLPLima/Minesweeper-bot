@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Minesweeper{
-    class Game{
 
-        private GameTable table;
+	/// <summary>
+	/// Class to control the game
+	/// </summary>
+	public class Game{
+
+		private GameTable table;
         private Player player1, player2;
         private int round;
         private int[] lastRound;
@@ -18,34 +21,15 @@ namespace Minesweeper{
             set { table = value; }
         }
 
-        public Player Player1{
-            get { return player1; }
-            set { player1 = value; }
-        }
-
-        public Player Player2{
-            get { return player2; }
-            set { player2 = value; }
-        }
-
-        public int Round{
-            get { return round; }
-            set { round = value; }
-        }
-
-        public int[] LastRound{
-            get { return lastRound; }
-            set { lastRound = value; }
-        }
-
-		public bool Active{
-			get { return active; }
-			set { active = value; }
-		}
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Minesweeper.Game"/> class.
+        /// </summary>
+        /// <param name="player1">Player name</param>
+        /// <param name="tableRows">Table rows.</param>
+        /// <param name="tableColumns">Table columns.</param>
         public Game(String player1, int tableRows, int tableColumns){
-            this.player1 = new Human(player1);
-			this.player2 = new Bot ("B0T M4sT3R");
+			this.player1 = new Human(player1, tableRows, tableColumns);
+			this.player2 = new Bot ("B0T M4sT3R", tableRows, tableColumns);
 
             this.table = new GameTable(tableRows, tableColumns);
             this.lastRound = new int[2];
@@ -78,49 +62,6 @@ namespace Minesweeper{
 			}
 		}
 
-        public void update(){
-			int x, y;
-			bool flag=false;
-
-			do {
-				Console.Write ("Linha: ");
-				x = Convert.ToInt32(Console.ReadLine());
-				Console.Write ("Coluna: ");
-				y = Convert.ToInt32(Console.ReadLine());
-
-				if (((x >= 0 && x < this.table.Rows) && (y >= 0 && y < this.table.Columns)) && 
-					(!this.table.Table [x, y].Visited)) {
-					flag = true;
-				}else{
-					Console.WriteLine("Posicao inválida! Por favor, informe outra");
-				}
-			} while(!flag);
-
-			if (this.table.setPos (x, y)) {
-				this.round+=1;
-				this.lastRound[0]= x;
-				this.lastRound[1]= y;
-
-				Console.Clear ();
-				this.Table.printMatrix ();
-
-				if(table.NodesRemaining == 0){
-					Console.WriteLine ("Voce ganhou!");
-					Console.WriteLine ("Pressione qualquer tecla para continuar");
-					Console.ReadLine ();
-	
-					this.Table.showBombs ();
-
-					active = false;
-				}
-			} else {
-				Console.Clear ();
-				this.Table.showBombs ();
-				Console.WriteLine ("Voce perdeu!");
-				active = false;
-			}
-        }
-
 		public void initialize(){
 			//Initial table
 			table.printMatrix();
@@ -147,7 +88,6 @@ namespace Minesweeper{
 				update2 ();
 
 			}
-			//unload ();
 		}
 
 		public Player getTurnPlayer(){
@@ -159,12 +99,11 @@ namespace Minesweeper{
 		}
 
 		private Position move(Player player){
-			//Player player = getTurnPlayer(); //Current player
-
 			bool flag = false;
 			Position pos;
+
 			do {
-				pos = player.play ();
+				pos = player.play (this.table);
 				Console.Write ("Linha: "+pos.X);
 				Console.Write ("Coluna: "+pos.Y);
 				Console.WriteLine("");

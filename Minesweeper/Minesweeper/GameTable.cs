@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Minesweeper{
-    class GameTable{
+    public class GameTable{
         private Node[,]table;
         private int bombs;
         private int rows;
@@ -61,11 +61,11 @@ namespace Minesweeper{
                             //Console.ReadLine();
                             if (!((jj == j)&(ii == i))) {
                                 if ((ii == -1) || (ii == this.Rows) || (jj == -1) || (jj == this.Columns )){
-                                    this.table[i, j].Vizinhanca.Add(null);
+                                    this.table[i, j].Neighborhood.Add(null);
                                 }
                                 else{
                                     //Console.WriteLine("entrou");
-                                    this.table[i, j].Vizinhanca.Add(this.table[ii, jj]);
+                                    this.table[i, j].Neighborhood.Add(this.table[ii, jj]);
                                     //Console.WriteLine(this.table[i, j].Vizinhanca.Count);
                                     //this.table[i,j].Vizinhanca[k] = this.table[ii,jj];
                                     //Console.WriteLine(this.table[i,j].Vizinhanca[k].Key);
@@ -138,8 +138,8 @@ namespace Minesweeper{
                 node.Visited = true;
 				this.nodesRemaining -= 1;
                 if(node.Key==0){
-                    for (int i = 0; i < node.Vizinhanca.Count; i++) {
-                        expand(node.Vizinhanca[i]);
+                    for (int i = 0; i < node.Neighborhood.Count; i++) {
+                        expand(node.Neighborhood[i]);
                     }
 
                 }
