@@ -5,13 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 namespace Minesweeper{
-    class Program{
+    class Program
+    {
 
-        static void Main(string[] args){
+        static void Main(string[] args)
+        {
             //Thread t = new Thread(new ThreadStart(Forms.Forms.RunForms));
-           // t.Start();
+            // t.Start();
             Forms.Forms.RunForms();
-           
+
         }
+
     }
 }

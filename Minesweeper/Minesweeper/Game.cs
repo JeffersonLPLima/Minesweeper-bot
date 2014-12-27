@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 namespace Minesweeper{
-    class Game{
 
-        private GameTable table;
+    ///<summary>
+	/// Class to control the game
+	/// </summary>
+	public class Game{
+
+		private GameTable table;
         private Human player1;
         private Bot player2;
         private int round;
@@ -18,6 +21,7 @@ namespace Minesweeper{
             get { return table; }
             set { table = value; }
         }
+
 
         public Human Player1{
             get { return player1; }
@@ -44,9 +48,16 @@ namespace Minesweeper{
 			set { active = value; }
 		}
 
-        public Game(String player1, int tableRows, int tableColumns){
-            this.player1 = new Human(player1);
-			this.player2 = new Bot ("B0T M4sT3R");
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Minesweeper.Game"/> class.
+        /// </summary>
+        /// <param name="player1">Player name</param>
+        /// <param name="tableRows">Table rows.</param>
+        /// <param name="tableColumns">Table columns.</param>
+      public Game(String player1, int tableRows, int tableColumns){
+			this.player1 = new Human(player1, tableRows, tableColumns);
+			this.player2 = new Bot ("B0T M4sT3R", tableRows, tableColumns);
 
             this.table = new GameTable(tableRows, tableColumns);
             this.lastRound = new int[2];
@@ -92,8 +103,6 @@ namespace Minesweeper{
             Console.WriteLine("Jooooo");
 		}
 
-       
-
 		public void initialize(){
 			//Initial table
 			table.printMatrix();
@@ -131,7 +140,6 @@ namespace Minesweeper{
                 
                 
 			}
-			//unload ();
 		}
 
 		public Player getTurnPlayer(){
@@ -142,23 +150,21 @@ namespace Minesweeper{
 			}
 		}
 
-		private Position move(Player player){
-			//Player player = getTurnPlayer(); //Current player
-           
-		bool flag = false;
+        private Position move(Player player){
+
+			bool flag = false;
 			Position pos;
+
 			do {
-				pos = player.play ();
-          
-                if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) && 
-			    (!this.table.Table [pos.X, pos.Y].Visited)) {
-                   Console.WriteLine("TRUE");
-                   
-                    if(round%2!=0)Thread.Sleep(1000);
-					flag = true;
+				pos = player.play (this.Table);
+
+                if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) && (!this.table.Table[pos.X, pos.Y].Visited))
+                {
+                    Console.WriteLine("TRUE");
+
+                    if (round % 2 != 0) Thread.Sleep(1000);
+                    flag = true;
                 }
-                
-                
 			} while(!flag);
 
 			this.round += 1;
@@ -167,6 +173,7 @@ namespace Minesweeper{
 
 			return pos;
 		}
+        
     }
 }
 

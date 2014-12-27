@@ -8,10 +8,16 @@ namespace Minesweeper{
     public abstract class Player{
         private String name;
 		private bool[,]tableBombsFound;
-		private int bombsFound;
+	
         private Position lastPosition;
-        public Player(String name){
+       
+		protected int bombsFound;
+        protected GameTable gameTableBombsFound;
+
+		public Player(String name, int rows, int columns){
+
 			this.name = name;
+            this.gameTableBombsFound = new GameTable(rows, columns);
 		}
         public Position LastPosition
         {
@@ -22,17 +28,7 @@ namespace Minesweeper{
             get { return name; }
             set { name = value; }
         }
-        
-		public bool[,] TableBombsFound{
-			get { return tableBombsFound; }
-			set { tableBombsFound = value; }
-		}
 
-		public int BombsFound{
-			get { return bombsFound; }
-			set { bombsFound = value; }
-		}
-
-		abstract public Position play ();
+		abstract public Position play (GameTable gameTable);
     }
 }

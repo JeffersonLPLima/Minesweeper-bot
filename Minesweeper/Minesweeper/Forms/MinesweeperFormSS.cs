@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
 using System.Threading;
 namespace Minesweeper
 {
@@ -14,22 +17,39 @@ namespace Minesweeper
         /// <summary>
         /// Image Locations
         /// </summary>
-        private static String noDesmImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/casaInativa.JPG";
-                                      
-        private static String noMarcImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/casaAtiva.JPG";
-        private static String Img1 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/1.JPG";
-        private static String Img2 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/2.JPG";
-        private static String Img3 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/3.JPG";
-        private static String Img4 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/4.JPG";
-        private static String Img5 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/5.JPG";
-        private static String Img6 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/6.JPG";
-        private static String Img7 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/7.JPG";
-        private static String Img8 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/8.JPG";
-        private static String mineImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/mina.jpg";
-        private static String flagImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/flag.JPG";
-
+      
         static bool click;
-       
+             /// </summary>
+    
+        private static String noDesmImg = "Forms/Images/casaInativa.JPG";
+       	
+       	private static String noMarcImg = "Forms/Images/casaAtiva.JPG";
+		private static String Img1 = "Forms/Images/1.JPG";
+		private static String Img2 = "Forms/Images/2.JPG";
+		private static String Img3= "Forms/Images/3.JPG";
+		private static String Img4 = "Forms/Images/4.JPG";
+		private static String Img5 = "Forms/Images/5.JPG";
+		private static String Img6 = "Forms/Images/6.JPG";
+		private static String Img7 = "Forms/Images/7.JPG";
+		private static String Img8 = "Forms/Images/8.JPG";
+		private static String mineImg = "Forms/Images/mina.jpg";
+		private static String flagImg = "Forms/Images/flag.JPG";
+
+        /*
+private static String noDesmImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/casaInativa.JPG";
+
+private static String noMarcImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/casaAtiva.JPG";
+private static String Img1 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/1.JPG";
+private static String Img2 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/2.JPG";
+private static String Img3 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/3.JPG";
+private static String Img4 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/4.JPG";
+private static String Img5 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/5.JPG";
+private static String Img6 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/6.JPG";
+private static String Img7 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/7.JPG";
+private static String Img8 = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/8.JPG";
+private static String mineImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/mina.jpg";
+private static String flagImg = "C:/Users/Jefferson Luiz/Desktop/Rep-Minesweeper/minesweeper-plp/Minesweeper/Minesweeper/Forms/Images/flag.JPG";
+* */
         static Game gameMine;
         static Button[][] btn;
         Thread thread;
@@ -42,25 +62,20 @@ namespace Minesweeper
            
             gameMine.Player1.Name = name;
 
+
             InitializeComponent();
         }
 
 
 
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e){
+            if (MessageBox.Show("Deseja sair do jogo ?", "Minesweeper", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){
 
-
-        public void sairToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Deseja sair do jogo ?", "Minesweeper", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
                 Application.Exit();
             }
         }
 
-        public void btncEvent_RightClick(object sender, MouseEventArgs e)
-        {
-
-        }
+        
 
         public void btnEvent_Click(object sender, MouseEventArgs e)
         {
@@ -90,6 +105,8 @@ namespace Minesweeper
                     RemaingBombs.Text = gameMine.Table.Bombs.ToString();
                     gameMine.Table.Table[posx, posy].Flaged = false;
                 } 
+
+     
             }
             else
             {   
@@ -103,34 +120,29 @@ namespace Minesweeper
                 if (click)
                 {
                     click = false;
-                    //gameMine.run();
-
-
+ 
                     thread = new Thread(new ThreadStart(gameMine.run));
                     thread.Start();
                 }
             }
         }
         
-        public void MinesweeperForm_Load(object sender, EventArgs e)
-        {
-            RemaingBombs.Text = gameMine.Table.Bombs.ToString();
-            Player1NameLabel.Text = gameMine.Player1.Name;
-            Player2NameLabel.Text = gameMine.Player2.Name;
-
+        
+        private void MinesweeperForm_Load(object sender, EventArgs e){
             int matrizX = gameMine.Table.Rows;
             int matrizY = gameMine.Table.Columns;
-            //  int  matrizX = 32;
-            // int matrizY = 32;
-            Image img = Image.FromFile(noDesmImg);
+
+			//string dir = Path.Combine (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), noDesmImg);
+
+			//Console.WriteLine ("Dir: " + dir);
+			Image img = Image.FromFile(noDesmImg);
             panelMatriz.Size = new Size(25 * matrizX, 25 * matrizY);
             panelMatriz.Visible = true;
-            btn = new Button[matrizX][];
-            for (int x = 0; x < matrizX; x++)
-            {
+            Button[][] btn = new Button[matrizX][];
+            
+			for (int x = 0; x < matrizX; x++){
                 btn[x] = new Button[matrizY];
-                for (int y = 0; y < matrizY; y++)
-                {
+                for (int y = 0; y < matrizY; y++){
                     btn[x][y] = new Button();
                     btn[x][y].Name = Convert.ToString(y + "," + x);
 
@@ -147,7 +159,6 @@ namespace Minesweeper
                     btn[x][y].MouseUp += new MouseEventHandler(this.btnEvent_Click);
                //     btn[x][y].MouseUp += System.Windows.FoMouseEventArgs;
                     panelMatriz.Controls.Add(btn[x][y]);
-
 
                 }
             }
@@ -197,7 +208,7 @@ namespace Minesweeper
             // int matrizY = gameTable.Columns;
             // panelMatriz.Size = new Size(25 * matrizX, 25 * matrizY);
             //   panelMatriz.Visible = true;
-
+            Image img;
             Console.WriteLine("Tabuleiro no MinesweeperForms");
             gameMine.Table.printMatrix();
             Console.WriteLine("=======================");
@@ -212,62 +223,62 @@ namespace Minesweeper
                         if (gameMine.Table.Table[x, y].Key == 0)
                         {
 
-                            Image img = Image.FromFile(noMarcImg);
+                            img = Image.FromFile(noMarcImg);
                             btn[y][x].Image = img;
                        
                             //     btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 1)
                         {
-                            Image img = Image.FromFile(Img1);
+                            img = Image.FromFile(Img1);
                             btn[y][x].Image = img;
                             //     btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 2)
                         {
-                            Image img = Image.FromFile(Img2);
+                            img = Image.FromFile(Img2);
                             btn[y][x].Image = img;
                             //     btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 3)
                         {
-                            Image img = Image.FromFile(Img3);
+                            img = Image.FromFile(Img3);
                             btn[y][x].Image = img;
                             //   btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 4)
                         {
-                            Image img = Image.FromFile(Img4);
+                            img = Image.FromFile(Img4);
                             btn[y][x].Image = img;
                             //    btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 5)
                         {
-                            Image img = Image.FromFile(Img5);
+                             img = Image.FromFile(Img5);
                             btn[y][x].Image = img;
                             //     btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 6)
                         {
-                            Image img = Image.FromFile(Img6);
+                             img = Image.FromFile(Img6);
                             btn[y][x].Image = img;
                             //    btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 7)
                         {
-                            Image img = Image.FromFile(Img7);
+                             img = Image.FromFile(Img7);
                             btn[y][x].Image = img;
                             //    btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 8)
                         {
-                            Image img = Image.FromFile(Img8);
+                             img = Image.FromFile(Img8);
                             btn[y][x].Image = img;
                             //     btn[y][x].Enabled = false;
                         }
                         else if (gameMine.Table.Table[x, y].Key == 10)
                         {
-                            Image img = Image.FromFile(mineImg);
+                             img = Image.FromFile(mineImg);
                             btn[y][x].Image = img;
                             //   btn[y][x].Enabled = false;
                         }
@@ -277,10 +288,6 @@ namespace Minesweeper
             }
 
         }
-
-
-
-
 
 
 
