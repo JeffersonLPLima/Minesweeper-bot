@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Threading;
 namespace Minesweeper{
     class Game{
 
         private GameTable table;
-        private Player player1, player2;
+        private Human player1;
+        private Bot player2;
         private int round;
         private int[] lastRound;
 		private bool active;
@@ -18,12 +19,12 @@ namespace Minesweeper{
             set { table = value; }
         }
 
-        public Player Player1{
+        public Human Player1{
             get { return player1; }
             set { player1 = value; }
         }
 
-        public Player Player2{
+        public Bot Player2{
             get { return player2; }
             set { player2 = value; }
         }
@@ -55,11 +56,17 @@ namespace Minesweeper{
 			Player player = getTurnPlayer(); //Current player
 
 			Position pos = move(player);
-
+           
 			if (this.table.setPos (pos.X, pos.Y)) {
-				Console.Clear ();
+				//Console.Clear ();
 				Console.WriteLine ("Ultima posicao jogada = X: "+pos.X+" Y: "+pos.Y);
-				this.Table.printMatrix ();
+                
+
+                this.Table.printMatrix ();
+                MinesweeperForm.updateTable();
+
+                Console.WriteLine("Update 2");
+                
 
 				if(table.NodesRemaining == 0){
 					Console.WriteLine ("Empate");
@@ -67,59 +74,25 @@ namespace Minesweeper{
 					Console.ReadLine ();
 
 					this.Table.showBombs ();
-
+                    MinesweeperForm.updateTable();
 					active = false;
 				}
 			} else {
-				Console.Clear ();
-				this.Table.showBombs ();
+				//Console.Clear ();
+                Console.WriteLine("PEDEU PLAYBOY");
+                this.Table.showBombs ();
+           
+                MinesweeperForm.showTableBombs();
+                //Console.WriteLine("Atualiza");
+               // Console.Read();
+               // MinesweeperForm.updateTable();
 				Console.WriteLine ("Voce perdeu "+player.Name+"!");
 				active = false;
 			}
+            Console.WriteLine("Jooooo");
 		}
 
-        public void update(){
-			int x, y;
-			bool flag=false;
-
-			do {
-				Console.Write ("Linha: ");
-				x = Convert.ToInt32(Console.ReadLine());
-				Console.Write ("Coluna: ");
-				y = Convert.ToInt32(Console.ReadLine());
-
-				if (((x >= 0 && x < this.table.Rows) && (y >= 0 && y < this.table.Columns)) && 
-					(!this.table.Table [x, y].Visited)) {
-					flag = true;
-				}else{
-					Console.WriteLine("Posicao inválida! Por favor, informe outra");
-				}
-			} while(!flag);
-
-			if (this.table.setPos (x, y)) {
-				this.round+=1;
-				this.lastRound[0]= x;
-				this.lastRound[1]= y;
-
-				Console.Clear ();
-				this.Table.printMatrix ();
-
-				if(table.NodesRemaining == 0){
-					Console.WriteLine ("Voce ganhou!");
-					Console.WriteLine ("Pressione qualquer tecla para continuar");
-					Console.ReadLine ();
-	
-					this.Table.showBombs ();
-
-					active = false;
-				}
-			} else {
-				Console.Clear ();
-				this.Table.showBombs ();
-				Console.WriteLine ("Voce perdeu!");
-				active = false;
-			}
-        }
+       
 
 		public void initialize(){
 			//Initial table
@@ -128,24 +101,35 @@ namespace Minesweeper{
 			//First move
 			Position pos = move (getTurnPlayer());
 
-			Console.Clear();
-
-			table.bombFields (pos.Y,pos.Y);
+			//Console.Clear();
+            table.bombFields (pos.Y,pos.Y);
 			table.setNodeKeys ();
 			table.expand(table.Table[pos.X, pos.Y]);
 
 			table.printMatrix();
+            Console.WriteLine("Novo Tabuleiro");
+
+            MinesweeperForm.updateTable();
+           
+			
 		}
 
 		public void run(){
-			active = true;
+			
+            active = true;
 			initialize ();
-
+            
 			while (active) {
-				Console.WriteLine ("Bombas: "+this.table.Bombs);
-				Console.WriteLine ("Casas restantes: "+this.table.NodesRemaining);
+             //   Console.WriteLine("Roudn:" +round);
+			//	Console.WriteLine ("Bombas: "+this.table.Bombs);
+		//		Console.WriteLine ("Casas restantes: "+this.table.NodesRemaining);
 				update2 ();
-
+                Console.WriteLine("Round:" + round);
+           //     Console.WriteLine("Novo Tabuleiro");
+                this.table.printMatrix();
+                MinesweeperForm.updateTable();
+                
+                
 			}
 			//unload ();
 		}
@@ -160,19 +144,21 @@ namespace Minesweeper{
 
 		private Position move(Player player){
 			//Player player = getTurnPlayer(); //Current player
-
-			bool flag = false;
+           
+		bool flag = false;
 			Position pos;
 			do {
 				pos = player.play ();
-				Console.Write ("Linha: "+pos.X);
-				Console.Write ("Coluna: "+pos.Y);
-				Console.WriteLine("");
-
-				if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) && 
-				    (!this.table.Table [pos.X, pos.Y].Visited)) {
+          
+                if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) && 
+			    (!this.table.Table [pos.X, pos.Y].Visited)) {
+                   Console.WriteLine("TRUE");
+                   
+                    if(round%2!=0)Thread.Sleep(1000);
 					flag = true;
-				}
+                }
+                
+                
 			} while(!flag);
 
 			this.round += 1;

@@ -1,5 +1,5 @@
 using System;
-
+using System.Threading;
 namespace Minesweeper{
 	public class Bot: Player{
 	
@@ -8,7 +8,11 @@ namespace Minesweeper{
 
 		public override Position play (){
 			Position pos = new Position (RandomUtil.GetRandomNumber(0,8), RandomUtil.GetRandomNumber(0,8));
-			Console.ReadLine ();
+            LastPosition = pos;
+            Console.WriteLine("Bot Jogou:" + pos.X + pos.Y);
+           
+           
+            
 			return pos;
 		}
 	}

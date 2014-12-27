@@ -9,11 +9,15 @@ namespace Minesweeper{
         private String name;
 		private bool[,]tableBombsFound;
 		private int bombsFound;
-
-		public Player(String name){
+        private Position lastPosition;
+        public Player(String name){
 			this.name = name;
 		}
-
+        public Position LastPosition
+        {
+            get { return lastPosition; }
+            set { lastPosition = value; }
+        }
 		public String Name{
             get { return name; }
             set { name = value; }

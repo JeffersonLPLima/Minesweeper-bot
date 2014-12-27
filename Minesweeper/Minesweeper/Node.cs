@@ -9,12 +9,17 @@ namespace Minesweeper{
         private List<Node> vizinhanca;
         private bool visited;
         private int key;
-
+        private bool flaged;
+        
         public List<Node> Vizinhanca{
             get { return vizinhanca; }
             set { vizinhanca = value; }
         }
-        
+        public bool Flaged
+        {
+            get { return flaged; }
+            set { flaged = value; }
+        }
         public int Key{
             get { return key; }
             set { key = value; }
@@ -26,6 +31,7 @@ namespace Minesweeper{
         }
 
         public Node(){
+            this.flaged = false;
             this.key = -1;
             this.vizinhanca = new List<Node>();
         }

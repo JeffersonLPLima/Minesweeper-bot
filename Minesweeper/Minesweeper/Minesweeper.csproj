@@ -31,7 +31,7 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Minesweeper.MinesweeperForm</StartupObject>
+    <StartupObject>Minesweeper.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Forms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms.Designer.cs">
+      <DependentUpon>Forms.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MinesweeperForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,9 @@
     <Compile Include="Teste.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\Forms.resx">
+      <DependentUpon>Forms.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MinesweeperForm.resx">
       <DependentUpon>MinesweeperForm.cs</DependentUpon>
     </EmbeddedResource>

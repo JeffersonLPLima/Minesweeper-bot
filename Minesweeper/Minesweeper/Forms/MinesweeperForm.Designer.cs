@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Panel panel2;
+            System.Windows.Forms.Panel detailspanel;
+          
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.Player2NameLabel = new System.Windows.Forms.Label();
+            this.Player1NameLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.RemaingBombs = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.Time = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,28 +50,30 @@
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tutorialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            panel2 = new System.Windows.Forms.Panel();
-            panel2.SuspendLayout();
+            detailspanel = new System.Windows.Forms.Panel();
+            detailspanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel2
+            // detailspanel
             // 
-            panel2.AutoSize = true;
-            panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panel2.Controls.Add(this.label7);
-            panel2.Controls.Add(this.label6);
-            panel2.Controls.Add(this.label5);
-            panel2.Controls.Add(this.label4);
-            panel2.Controls.Add(this.label3);
-            panel2.Controls.Add(this.button1);
-            panel2.Controls.Add(this.label2);
-            panel2.Controls.Add(this.Time);
-            panel2.Controls.Add(this.label1);
-            panel2.Location = new System.Drawing.Point(12, 54);
-            panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(415, 102);
-            panel2.TabIndex = 1;
+            detailspanel.AccessibleName = "details";
+            detailspanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            detailspanel.AutoSize = true;
+            detailspanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            detailspanel.Controls.Add(this.label7);
+            detailspanel.Controls.Add(this.label6);
+            detailspanel.Controls.Add(this.Player2NameLabel);
+            detailspanel.Controls.Add(this.Player1NameLabel);
+            detailspanel.Controls.Add(this.label3);
+            detailspanel.Controls.Add(this.RemaingBombs);
+            detailspanel.Controls.Add(this.label2);
+            detailspanel.Controls.Add(this.Time);
+            detailspanel.Controls.Add(this.label1);
+            detailspanel.Location = new System.Drawing.Point(12, 55);
+            detailspanel.Name = "detailspanel";
+            detailspanel.Size = new System.Drawing.Size(415, 102);
+            detailspanel.TabIndex = 1;
             // 
             // label7
             // 
@@ -90,25 +93,25 @@
             this.label6.TabIndex = 7;
             this.label6.Text = "PontosP";
             // 
-            // label5
+            // Player2NameLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(145, 63);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 17);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "BOT";
+            this.Player2NameLabel.AutoSize = true;
+            this.Player2NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Player2NameLabel.Location = new System.Drawing.Point(145, 63);
+            this.Player2NameLabel.Name = "Player2NameLabel";
+            this.Player2NameLabel.Size = new System.Drawing.Size(40, 17);
+            this.Player2NameLabel.TabIndex = 6;
+            this.Player2NameLabel.Text = "BOT";
             // 
-            // label4
+            // Player1NameLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(131, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 17);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Player";
+            this.Player1NameLabel.AutoSize = true;
+            this.Player1NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Player1NameLabel.Location = new System.Drawing.Point(131, 31);
+            this.Player1NameLabel.Name = "Player1NameLabel";
+            this.Player1NameLabel.Size = new System.Drawing.Size(54, 17);
+            this.Player1NameLabel.TabIndex = 5;
+            this.Player1NameLabel.Text = "Player";
             // 
             // label3
             // 
@@ -121,14 +124,14 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Pontuação";
             // 
-            // button1
+            // RemaingBombs
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(9, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 75);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = true;
+            this.RemaingBombs.Enabled = false;
+            this.RemaingBombs.Location = new System.Drawing.Point(9, 22);
+            this.RemaingBombs.Name = "RemaingBombs";
+            this.RemaingBombs.Size = new System.Drawing.Size(75, 75);
+            this.RemaingBombs.TabIndex = 3;
+            this.RemaingBombs.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -196,31 +199,34 @@
             this.médioToolStripMenuItem1,
             this.difícilToolStripMenuItem1});
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.novoToolStripMenuItem.Text = "Novo";
             // 
             // fácilToolStripMenuItem1
             // 
             this.fácilToolStripMenuItem1.Name = "fácilToolStripMenuItem1";
-            this.fácilToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
+            this.fácilToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.fácilToolStripMenuItem1.Text = "Fácil";
+            this.fácilToolStripMenuItem1.Click += new System.EventHandler(this.fácilToolStripMenuItem1_Click);
             // 
             // médioToolStripMenuItem1
             // 
             this.médioToolStripMenuItem1.Name = "médioToolStripMenuItem1";
-            this.médioToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
+            this.médioToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.médioToolStripMenuItem1.Text = "Médio";
+            this.médioToolStripMenuItem1.Click += new System.EventHandler(this.médioToolStripMenuItem1_Click);
             // 
             // difícilToolStripMenuItem1
             // 
             this.difícilToolStripMenuItem1.Name = "difícilToolStripMenuItem1";
-            this.difícilToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
+            this.difícilToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.difícilToolStripMenuItem1.Text = "Difícil";
+            this.difícilToolStripMenuItem1.Click += new System.EventHandler(this.difícilToolStripMenuItem1_Click);
             // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -251,7 +257,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(444, 506);
-            this.Controls.Add(panel2);
+            this.Controls.Add(detailspanel);
             this.Controls.Add(this.panelMatriz);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -259,8 +265,8 @@
             this.Name = "MinesweeperForm";
             this.Text = "MinesweeperForm";
             this.Load += new System.EventHandler(this.MinesweeperForm_Load);
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            detailspanel.ResumeLayout(false);
+            detailspanel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -280,10 +286,10 @@
         public System.Windows.Forms.Panel panelMatriz;
         private System.Windows.Forms.Button Time;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button RemaingBombs;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label Player2NameLabel;
+        private System.Windows.Forms.Label Player1NameLabel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;

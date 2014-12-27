@@ -11,12 +11,13 @@ namespace Minesweeper{
         private int rows;
         private int columns;
         private int nodesRemaining;
+       
 
         public Node[,] Table{
             get { return table; }
             set { table = value; }
         }
-        
+      
 		public int Columns{
             get { return columns; }
             set { columns = value; }
