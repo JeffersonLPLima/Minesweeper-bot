@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,16 +9,18 @@ namespace Minesweeper{
         private bool visited;
         private int key;
         private bool flaged;
+        private float probBomb;
         
         public List<Node> Neighborhood{
             get { return neighborhood; }
             set { neighborhood = value; }
         }
-        public bool Flaged
-        {
+
+        public bool Flaged{
             get { return flaged; }
             set { flaged = value; }
         }
+
         public int Key{
             get { return key; }
             set { key = value; }
@@ -30,6 +31,11 @@ namespace Minesweeper{
             set { visited = value; }
         }
 
+        public float ProbBomb{
+            get { return probBomb; }
+            set { probBomb = value; }
+        }
+
         public Node(){
             this.flaged = false;
             this.key = -1;
@@ -37,20 +43,22 @@ namespace Minesweeper{
         }
 
         public void countBombs(){
-            int count = 0;
+            int bombs = 0;
+
 			if (this.key != 10) {
-				for (int i = 0; i < 8; i++){
+                for (int i = 0; i < neighborhood.Count; i++){
 	                if (this.neighborhood[i] != null && this.neighborhood[i].key==10) {
-	                    count += 1;
+	                    bombs += 1;
 	                }
 	            }
  
-                this.key = count;
+                this.key = bombs;
             }
         }
 
 		public List<Node> getNeighborhoodVisible(){
 			List<Node> neighborhoodVisible = new List<Node>();
+
 			for (int i = 0; i < this.neighborhood.Count; i++) {
 				if(this.neighborhood[i]!=null && !this.neighborhood[i].Visited){
 					neighborhoodVisible.Add(this.neighborhood[i]);
