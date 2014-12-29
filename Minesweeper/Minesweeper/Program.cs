@@ -6,7 +6,7 @@ namespace Minesweeper{
     class Program
     {
 
-        static void Main(string[] args)
+       public static void Main(string[] args)
         {
             //Console.WriteLine ("Pressione algo");
             //Console.ReadLine ();
@@ -22,8 +22,9 @@ namespace Minesweeper{
             //frm.RunMinesweeperForms (2, "Qwerty");
            
             Forms.Forms.RunForms();
-
+           //Forms.AboutForm.runAboutForms();
         }
+      
 
     }
 }
