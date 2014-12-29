@@ -8,13 +8,14 @@ namespace Minesweeper{
     class Program
     {
 
-        static void Main(string[] args)
+       public static void Main(string[] args)
         {
             //Thread t = new Thread(new ThreadStart(Forms.Forms.RunForms));
             // t.Start();
             Forms.Forms.RunForms();
-
+           //Forms.AboutForm.runAboutForms();
         }
+      
 
     }
 }

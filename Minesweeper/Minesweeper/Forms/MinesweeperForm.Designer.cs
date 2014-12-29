@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Panel detailspanel;
-          
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MinesweeperForm));
+            smilleButton = new System.Windows.Forms.Button();
+            memButton = new System.Windows.Forms.Button();
+            this.RemainingBombs = new System.Windows.Forms.Label();
+            this.timeRemainingLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.Player2NameLabel = new System.Windows.Forms.Label();
             this.Player1NameLabel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.RemaingBombs = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.Time = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panelMatriz = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -60,44 +60,76 @@
             detailspanel.AccessibleName = "details";
             detailspanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             detailspanel.AutoSize = true;
+            detailspanel.BackColor = System.Drawing.SystemColors.ButtonFace;
             detailspanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            detailspanel.Controls.Add(this.label7);
-            detailspanel.Controls.Add(this.label6);
+            detailspanel.Controls.Add(smilleButton);
+            detailspanel.Controls.Add(memButton);
+            detailspanel.Controls.Add(this.RemainingBombs);
+            detailspanel.Controls.Add(this.timeRemainingLabel);
+            detailspanel.Controls.Add(this.label4);
             detailspanel.Controls.Add(this.Player2NameLabel);
             detailspanel.Controls.Add(this.Player1NameLabel);
-            detailspanel.Controls.Add(this.label3);
-            detailspanel.Controls.Add(this.RemaingBombs);
             detailspanel.Controls.Add(this.label2);
-            detailspanel.Controls.Add(this.Time);
             detailspanel.Controls.Add(this.label1);
-            detailspanel.Location = new System.Drawing.Point(12, 55);
+            detailspanel.Location = new System.Drawing.Point(12, 57);
             detailspanel.Name = "detailspanel";
-            detailspanel.Size = new System.Drawing.Size(415, 102);
+            detailspanel.Size = new System.Drawing.Size(444, 108);
             detailspanel.TabIndex = 1;
             // 
-            // label7
+            // smilleButton
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(195, 63);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 17);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "PontosB";
+            smilleButton.Enabled = false;
+            smilleButton.Image = global::Minesweeper.Properties.Resources._318_52014;
+            smilleButton.Location = new System.Drawing.Point(218, 7);
+            smilleButton.Name = "smilleButton";
+            smilleButton.Size = new System.Drawing.Size(69, 69);
+            smilleButton.TabIndex = 10;
+            smilleButton.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // memButton
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(195, 31);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 17);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "PontosP";
+            memButton.Enabled = false;
+            memButton.Image = global::Minesweeper.Properties.Resources.trollface_meme;
+            memButton.Location = new System.Drawing.Point(116, 7);
+            memButton.Name = "memButton";
+            memButton.Size = new System.Drawing.Size(69, 69);
+            memButton.TabIndex = 11;
+            memButton.UseVisualStyleBackColor = true;
+            // 
+            // RemainingBombs
+            // 
+            this.RemainingBombs.AutoSize = true;
+            this.RemainingBombs.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold);
+            this.RemainingBombs.Location = new System.Drawing.Point(13, 46);
+            this.RemainingBombs.Name = "RemainingBombs";
+            this.RemainingBombs.Size = new System.Drawing.Size(49, 32);
+            this.RemainingBombs.TabIndex = 9;
+            this.RemainingBombs.Text = "00";
+            // 
+            // timeRemainingLabel
+            // 
+            this.timeRemainingLabel.AutoSize = true;
+            this.timeRemainingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeRemainingLabel.Location = new System.Drawing.Point(350, 46);
+            this.timeRemainingLabel.Name = "timeRemainingLabel";
+            this.timeRemainingLabel.Size = new System.Drawing.Size(49, 32);
+            this.timeRemainingLabel.TabIndex = 8;
+            this.timeRemainingLabel.Text = "10";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(195, 46);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 17);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "X";
             // 
             // Player2NameLabel
             // 
             this.Player2NameLabel.AutoSize = true;
             this.Player2NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Player2NameLabel.Location = new System.Drawing.Point(145, 63);
+            this.Player2NameLabel.Location = new System.Drawing.Point(113, 79);
             this.Player2NameLabel.Name = "Player2NameLabel";
             this.Player2NameLabel.Size = new System.Drawing.Size(40, 17);
             this.Player2NameLabel.TabIndex = 6;
@@ -107,56 +139,27 @@
             // 
             this.Player1NameLabel.AutoSize = true;
             this.Player1NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Player1NameLabel.Location = new System.Drawing.Point(131, 31);
+            this.Player1NameLabel.Location = new System.Drawing.Point(215, 79);
             this.Player1NameLabel.Name = "Player1NameLabel";
             this.Player1NameLabel.Size = new System.Drawing.Size(54, 17);
             this.Player1NameLabel.TabIndex = 5;
             this.Player1NameLabel.Text = "Player";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(152, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 17);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Pontuação";
-            // 
-            // RemaingBombs
-            // 
-            this.RemaingBombs.Enabled = false;
-            this.RemaingBombs.Location = new System.Drawing.Point(9, 22);
-            this.RemaingBombs.Name = "RemaingBombs";
-            this.RemaingBombs.Size = new System.Drawing.Size(75, 75);
-            this.RemaingBombs.TabIndex = 3;
-            this.RemaingBombs.UseVisualStyleBackColor = true;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 2);
+            this.label2.Location = new System.Drawing.Point(3, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 17);
             this.label2.TabIndex = 2;
             this.label2.Text = "Bombas";
             // 
-            // Time
-            // 
-            this.Time.Enabled = false;
-            this.Time.Location = new System.Drawing.Point(335, 20);
-            this.Time.Name = "Time";
-            this.Time.Size = new System.Drawing.Size(75, 74);
-            this.Time.TabIndex = 1;
-            this.Time.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(347, 0);
+            this.label1.Location = new System.Drawing.Point(342, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 17);
             this.label1.TabIndex = 0;
@@ -167,9 +170,10 @@
             this.panelMatriz.AccessibleName = "painelTable";
             this.panelMatriz.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.panelMatriz.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMatriz.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panelMatriz.Location = new System.Drawing.Point(12, 171);
             this.panelMatriz.Name = "panelMatriz";
-            this.panelMatriz.Size = new System.Drawing.Size(415, 326);
+            this.panelMatriz.Size = new System.Drawing.Size(444, 326);
             this.panelMatriz.TabIndex = 0;
             // 
             // menuStrip1
@@ -179,7 +183,7 @@
             this.ajudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(444, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(469, 28);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -207,21 +211,21 @@
             this.fácilToolStripMenuItem1.Name = "fácilToolStripMenuItem1";
             this.fácilToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.fácilToolStripMenuItem1.Text = "Fácil";
-            this.fácilToolStripMenuItem1.Click += new System.EventHandler(this.fácilToolStripMenuItem1_Click);
+            this.fácilToolStripMenuItem1.Click += new System.EventHandler(this.facilToolStripMenuItem1_Click);
             // 
             // médioToolStripMenuItem1
             // 
             this.médioToolStripMenuItem1.Name = "médioToolStripMenuItem1";
             this.médioToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.médioToolStripMenuItem1.Text = "Médio";
-            this.médioToolStripMenuItem1.Click += new System.EventHandler(this.médioToolStripMenuItem1_Click);
+            this.médioToolStripMenuItem1.Click += new System.EventHandler(this.medioToolStripMenuItem1_Click);
             // 
             // difícilToolStripMenuItem1
             // 
             this.difícilToolStripMenuItem1.Name = "difícilToolStripMenuItem1";
             this.difícilToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
             this.difícilToolStripMenuItem1.Text = "Difícil";
-            this.difícilToolStripMenuItem1.Click += new System.EventHandler(this.difícilToolStripMenuItem1_Click);
+            this.difícilToolStripMenuItem1.Click += new System.EventHandler(this.dificilToolStripMenuItem1_Click);
             // 
             // sairToolStripMenuItem
             // 
@@ -242,29 +246,33 @@
             // tutorialToolStripMenuItem
             // 
             this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
-            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.tutorialToolStripMenuItem.Text = "Tutorial";
             // 
             // sobreToolStripMenuItem
             // 
             this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
             this.sobreToolStripMenuItem.Text = "Sobre";
+            this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
             // MinesweeperForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(444, 506);
+            this.ClientSize = new System.Drawing.Size(469, 506);
             this.Controls.Add(detailspanel);
             this.Controls.Add(this.panelMatriz);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MinesweeperForm";
             this.Text = "MinesweeperForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.onFormClosing);
             this.Load += new System.EventHandler(this.MinesweeperForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             detailspanel.ResumeLayout(false);
             detailspanel.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -284,17 +292,21 @@
         private System.Windows.Forms.ToolStripMenuItem tutorialToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
         public System.Windows.Forms.Panel panelMatriz;
-        private System.Windows.Forms.Button Time;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button RemaingBombs;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Player2NameLabel;
         private System.Windows.Forms.Label Player1NameLabel;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStripMenuItem fácilToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem médioToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem difícilToolStripMenuItem1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label timeRemainingLabel;
+        private System.Windows.Forms.Label RemainingBombs;
+        public static System.Windows.Forms.Button[][] btn;
+        public static System.Windows.Forms.Timer timer;
+        public static System.Windows.Forms.Button memButton;
+        public static System.Windows.Forms.Button smilleButton;
+        
     }
+        
 }

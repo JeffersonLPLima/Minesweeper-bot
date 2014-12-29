@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Forms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms.resx">
       <DependentUpon>Forms.cs</DependentUpon>
     </EmbeddedResource>
@@ -126,7 +135,25 @@
     <Compile Include="RandomUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\Images\" />
+    <None Include="Resources\_318-52014.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trollface meme.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trollface memeCoroa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\smilleCoroa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MinesweeperLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

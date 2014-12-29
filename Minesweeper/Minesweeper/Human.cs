@@ -14,7 +14,7 @@ namespace Minesweeper
             Position lastPosition = LastPosition;
             //Random random = new Random ();
             //Position pos = new Position (random.Next(0,8), random.Next(0,8));
-            //   Console.WriteLine("Human jogou:" + lastPosition.X + lastPosition.Y);
+            //Console.WriteLine("Human jogou:" + lastPosition.X + lastPosition.Y);
 
             return lastPosition;
         }

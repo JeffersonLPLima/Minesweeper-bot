@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+
+
 namespace Minesweeper{
 
     ///<summary>
@@ -57,7 +59,7 @@ namespace Minesweeper{
         /// <param name="tableColumns">Table columns.</param>
       public Game(String player1, int tableRows, int tableColumns){
 			this.player1 = new Human(player1, tableRows, tableColumns);
-			this.player2 = new Bot ("B0T M4sT3R", tableRows, tableColumns);
+			this.player2 = new Bot ("The B0T", tableRows, tableColumns);
 
             this.table = new GameTable(tableRows, tableColumns);
             this.lastRound = new int[2];
@@ -85,8 +87,8 @@ namespace Minesweeper{
 					Console.ReadLine ();
 
 					this.Table.showBombs ();
-                    MinesweeperForm.updateTable();
-					active = false;
+                    MinesweeperForm.showTableBombs();
+                    active = false;
 				}
 			} else {
 				//Console.Clear ();
@@ -100,7 +102,6 @@ namespace Minesweeper{
 				Console.WriteLine ("Voce perdeu "+player.Name+"!");
 				active = false;
 			}
-            Console.WriteLine("Jooooo");
 		}
 
 		public void initialize(){
@@ -124,21 +125,14 @@ namespace Minesweeper{
 		}
 
 		public void run(){
-			
+         
+          
             active = true;
 			initialize ();
             
 			while (active) {
-             //   Console.WriteLine("Roudn:" +round);
-			//	Console.WriteLine ("Bombas: "+this.table.Bombs);
-		//		Console.WriteLine ("Casas restantes: "+this.table.NodesRemaining);
 				update2 ();
-                Console.WriteLine("Round:" + round);
-           //     Console.WriteLine("Novo Tabuleiro");
                 this.table.printMatrix();
-                MinesweeperForm.updateTable();
-                
-                
 			}
 		}
 
@@ -166,7 +160,7 @@ namespace Minesweeper{
                     flag = true;
                 }
 			} while(!flag);
-
+            
 			this.round += 1;
 			this.lastRound[0] = pos.X;
 			this.lastRound [1] = pos.Y;
