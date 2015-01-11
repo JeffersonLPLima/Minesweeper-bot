@@ -5,7 +5,25 @@ namespace Minesweeper{
 
 		private int x;
 		private int y;
-
+        private int numero;
+        public int Numero
+        {
+            get { return numero; }
+            set { numero = value; }
+        }
+        public int getNumero()
+        {
+            numero += 1;
+            return numero;
+        }
+        public int quadrado(int x)
+        {
+            if (false)
+            {
+                Console.WriteLine("Numero: " + x);
+            }
+            return numero * numero;
+        }
 		public int X{
 			get { return x; }
 			set { x = value; }

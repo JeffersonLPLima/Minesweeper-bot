@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Minesweeper{
     public abstract class Player{
         private String name;
-		private bool[,]tableBombsFound;
-	
         private Position lastPosition;
-       
 		protected int bombsFound;
         protected GameTable gameTableBombsFound;
 

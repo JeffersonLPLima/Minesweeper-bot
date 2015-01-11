@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
+using System.Media;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Timers;
+
 
 namespace Minesweeper
 {
@@ -17,7 +18,7 @@ namespace Minesweeper
         /// Image Locations
         /// </summary>
         private static String noDesmImg = "Forms/Images/casaInativa.JPG";
-                                      
+
         private static String noMarcImg = "Forms/Images/casaAtiva.JPG";
         private static String Img1 = "Forms/Images/1.JPG";
         private static String Img2 = "Forms/Images/2.JPG";
@@ -30,17 +31,20 @@ namespace Minesweeper
         private static String mineImg = "Forms/Images/mine.JPG";
         private static String flagImg = "Forms/Images/flag.JPG";
 
-
+       
         private static int timeRemaining;
         private static bool click;
         private static Game gameMine;
         public static Thread thread;
         private static int initialTime;
+        public static int userBombsRemaining;
+       
 
-
-
-        public MinesweeperForm(int difficulty, String name)
+        public MinesweeperForm(int difficulty, String name, byte whoBegins)
         {
+            CheckForIllegalCrossThreadCalls = true;
+            
+            click = true;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             if (difficulty == 1) { 
                 gameMine = new Game(name, 8, 8);
@@ -53,14 +57,32 @@ namespace Minesweeper
                 timeRemaining = initialTime;
             }
             else { 
-                gameMine = new Game(name, 30, 16);
+                gameMine = new Game(name, 16, 30);
                 initialTime = 10;
                 timeRemaining = initialTime;
 
             }
-            click = true;
+           
+            if (whoBegins == 0)
+            {
+                MessageBox.Show("The B0T começa!", " Minesweeper ");
+                click = false;
+                thread = new Thread(new ThreadStart(gameMine.run));
+                thread.Start();
+                gameMine.Round = 1;
+                
+            }
+            else
+            {
+                MessageBox.Show(name+" começa!", " Minesweeper ");
+                
+            }
+
+           
+            userBombsRemaining = gameMine.Table.Bombs;
             gameMine.Player1.Name = name;
            
+
             InitializeComponent();
         }
 
@@ -68,30 +90,29 @@ namespace Minesweeper
 
 
 
-       
         public void btnEvent_Click(object sender, MouseEventArgs e)
         {
-            
-            if (gameMine.Round % 2 == 0)
+
+            if (gameMine.Round % 2 == 0 && gameMine.Active)
             {
-               
+
                 String[] pos = ((Button)sender).Name.Split(',');
                 int posx = Convert.ToInt32(pos[0]);
 
                 int posy = Convert.ToInt32(pos[1]);
-                
+
                 MouseEventArgs me = (MouseEventArgs)e;
                 if (me.Button == System.Windows.Forms.MouseButtons.Right)
                 {
-                    if (!gameMine.Table.Table[posx, posy].Flaged)
+                    if (!gameMine.Table.Table[posx, posy].Flaged && userBombsRemaining!=0)
                     {
                         if (!gameMine.Table.Table[posx, posy].Visited)
                         {
-                            
+
                             Image imgFlag = Image.FromFile(flagImg);
                             btn[posx][posy].Image = imgFlag;
-                            gameMine.Table.Bombs -= 1;
-                            RemainingBombs.Text = gameMine.Table.Bombs.ToString();
+                            userBombsRemaining -= 1;
+                            RemainingBombs.Text = userBombsRemaining.ToString();
                             gameMine.Table.Table[posx, posy].Flaged = true;
                         }
                     }
@@ -101,8 +122,8 @@ namespace Minesweeper
                         {
                             Image imgFlag = Image.FromFile(noDesmImg);
                             btn[posx][posy].Image = imgFlag;
-                            gameMine.Table.Bombs += 1;
-                            RemainingBombs.Text = gameMine.Table.Bombs.ToString();
+                            userBombsRemaining += 1;
+                            RemainingBombs.Text = userBombsRemaining.ToString();
                             gameMine.Table.Table[posx, posy].Flaged = false;
                         }
                     }
@@ -119,20 +140,20 @@ namespace Minesweeper
 
                         gameMine.Player1.LastPosition = positionClicked;
                     }
-                     if (click)
+                    if (click)
                     {
                         click = false;
                         thread = new Thread(new ThreadStart(gameMine.run));
-                      
+
                         thread.Start();
                         timer.Start();
 
                     }
                 }
             }
-            
+
         }
-        
+
         public void MinesweeperForm_Load(object sender, EventArgs e)
         {
             timer = new System.Windows.Forms.Timer();   
@@ -140,42 +161,45 @@ namespace Minesweeper
             timer.Tick += new System.EventHandler(this.timer1_Tick);
             timeRemainingLabel.Text = timeRemaining.ToString();
 
-            RemainingBombs.Text = gameMine.Table.Bombs.ToString();
+            RemainingBombs.Text = userBombsRemaining.ToString(); ;
             Player1NameLabel.Text = gameMine.Player1.Name;
             Player2NameLabel.Text = gameMine.Player2.Name;
+            gameMine.Active = true;
 
             int matrizX = gameMine.Table.Rows;
             int matrizY = gameMine.Table.Columns;
             Image img = Image.FromFile(noDesmImg);
-            panelMatriz.Size = new Size(25 * matrizX, 25 * matrizY);
-            
+            panelMatriz.Size = new Size(25 * matrizY, 25 * matrizX);
+      
             btn = new Button[matrizX][];
-            for (int x = 0; x < matrizX; x++)
+            for (int y = 0; y< matrizX; y++)
             {
-                btn[x] = new Button[matrizY];
-                for (int y = 0; y < matrizY; y++)
+                btn[y] = new Button[matrizY];
+                for (int x = 0;x  < matrizY; x++)
                 {
-                    btn[x][y] = new Button();
-                    btn[x][y].Name = Convert.ToString(x + "," + y);
+                    btn[y][x] = new Button();
+                    btn[y][x].Name = Convert.ToString(y + "," + x);
 
 
-                    btn[x][y].AccessibleName = "casa";
-                    btn[x][y].Size = new Size(25, 25);
+                    btn[y][x].AccessibleName = "casa";
+                    btn[y][x].Size = new Size(25, 25);
 
-                    btn[x][y].Image = img;
+                    btn[y][x].Image = img;
 
-                    btn[x][y].Visible = true;
-                    btn[x][y].Location = new Point(x * 25, y * 25);
-                    btn[x][y].MouseUp += new MouseEventHandler(this.btnEvent_Click);
-                    panelMatriz.Controls.Add(btn[x][y]);
+                    btn[y][x].Visible = true;
+                    btn[y][x].Location = new Point(x * 25, y* 25);
+                    btn[y][x].MouseUp += new MouseEventHandler(this.btnEvent_Click);
+                    panelMatriz.Controls.Add(btn[y][x]);
 
 
                 }
             }
-            this.panelMatriz.Location = new System.Drawing.Point(System.Convert.ToInt32((this.Size.Width / 2) - (this.panelMatriz.Size.Width / 2)), 171);
+            this.panelMatriz.Location = new System.Drawing.Point(this.Size.Width / 2 - this.panelMatriz.Size.Width / 2, 171);
         }
         public static void showTableBombs()
         {
+            timer.Stop();
+
             int matrizX = gameMine.Table.Rows;
             int matrizY = gameMine.Table.Columns;
             Console.WriteLine("Bombas no tabuleiro");
@@ -191,32 +215,40 @@ namespace Minesweeper
                     {
                         img = Image.FromFile(mineImg);
                         btn[x][y].Image = img;
-                      
+
                     }
 
                 }
             }
-            timer.Stop();
-            
-            if (gameMine.Round % 2 == 0) { 
-                smilleButton.Image = Properties.Resources.smilleCoroa;
-            }
-            else {
-                memButton.Image = Properties.Resources.trollface_memeCoroa;
-                
-            }
+          
             
 
-            MessageBox.Show(gameMine.getTurnPlayer().Name + " Ganhou!!", "Minesweeper");
-  
+            
+            if (gameMine.Table.NodesRemaining != 0){
+
+                if (gameMine.Round % 2 == 0)
+                {
+                    pictureBoxSmille.Image = Properties.Resources.smilleCoroa1;
+                }
+                else
+                {
+                    pictureBoxMeme.Image = Properties.Resources.memeCoroa;
+                }
+                timer.Stop();
+                MessageBox.Show(gameMine.getTurnPlayer().Name + " Ganhou!!", "Minesweeper");
+                
+            }
         }
+        
+
+
         /// <summary>
         /// Update Rendered Table
         /// 
         /// </summary>
         public static void updateTable()
         {
-           
+            
             int matrizX = gameMine.Table.Rows;
             int matrizY = gameMine.Table.Columns;
             Console.WriteLine("Tabuleiro no MinesweeperForms");
@@ -226,10 +258,18 @@ namespace Minesweeper
             {
                 for (int y = 0; y < matrizY; y++)
                 {
-
+                    
                     if (gameMine.Table.Table[x, y].Visited == true)
                     {
 
+                        if (gameMine.Table.Table[x, y].Flaged)
+                        {
+                            userBombsRemaining += 1;
+                            gameMine.Table.Table[x, y].Flaged = false;
+                            RemainingBombs.Text = userBombsRemaining.ToString();
+
+
+                        }
                         if (gameMine.Table.Table[x, y].Key == 0)
                         {
 
@@ -276,37 +316,40 @@ namespace Minesweeper
                             Image img = Image.FromFile(Img8);
                             btn[x][y].Image = img;
                         }
-                       
+
 
                     }
                 }
             }
-
+           
+            if (gameMine.Table.NodesRemaining == 0){
+                timer.Stop();
+                MessageBox.Show(" Empate!!", "Minesweeper");
+                showTableBombs();
+                gameMine.Active = false;
+                
+            }
+            
         }
 
 
 
 
 
-
-
-   
-
-
         public void RunMinesweeperForms(int difficulty, String name)
         {
 
 
+            byte whoBegins=(byte) RandomUtil.GetRandomNumber(0, 2);
 
-            // Game game = new Game("Player1", 7, 7);
-            //MessageBox.Show("Nome/Tamanho:" + gameMine.Player1.Name + "/" + gameMine.Table.Rows + gameMine.Table.Columns);
-            // MessageBox.Show(difficulty + name);
+           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MinesweeperForm(difficulty, name));
-           
+            Application.Run(new MinesweeperForm(difficulty, name, whoBegins));
 
-            //      game.run();
+
+
+          
         }
 
         private void onFormClosing(object sender, FormClosedEventArgs e)
@@ -314,19 +357,37 @@ namespace Minesweeper
             Environment.Exit(0);
         }
 
+        public void randomPlay()
+        {
+            Position pos;
+            bool flag = false;
+            while (!flag)
+            {
+                pos = new Position(RandomUtil.GetRandomNumber(0, gameMine.Table.Rows), RandomUtil.GetRandomNumber(0, gameMine.Table.Columns));
+                Console.WriteLine("Posição sorteada = X: " + pos.X + " Y: " + pos.Y);
+                if (!gameMine.Table.Table[pos.X, pos.Y].Visited)
+                {
+                    timeRemaining = initialTime;
+                    timeRemainingLabel.Text = timeRemaining.ToString();
+                    timer.Start();
+                    gameMine.Player1.LastPosition = pos;
+                    gameMine.Player1.play(gameMine.Table);
+                    flag = true;
+                }
+            }
+
+        }
         public void timer1_Tick(object sender, EventArgs e)
         {
+            
             timeRemaining--;
             timeRemainingLabel.Text = timeRemaining.ToString();
             if (timeRemaining == 0){
                 timer.Stop();
-                timeRemainingLabel.Text = timeRemaining.ToString();
-                MessageBox.Show("O Tempo acabou!!\nVocê Perdeu " + Player1NameLabel.Text, "Minesweeper");
-                gameMine.Round = 1;
-                showTableBombs();
-                
+                timeRemainingLabel.Text = 0.ToString();
+                randomPlay();
             }
-           
+
         }
 
 
@@ -337,41 +398,48 @@ namespace Minesweeper
                     case Keys.F:
                         facilToolStripMenuItem1_Click(sender, k);
                         break;
-                    case Keys.M:
+                        case Keys.M:
                         medioToolStripMenuItem1_Click(sender, k);
                         break;
-                    case Keys.D:
+                        case Keys.D:
                         dificilToolStripMenuItem1_Click(sender, k);
                         break;
-                    case Keys.S:
+                        case Keys.S:
                         break;
-                    case Keys.F4:
+                        case Keys.F4:
                         break;
-                    case Keys.T:
+                        case Keys.T:
                         break;
-                
-                
+
+
                 }
-                
+
 
             }
         }
         void facilToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
+            timer.Stop();
             this.Hide();
-            new MinesweeperForm(1, gameMine.Player1.Name).Show();
+            new MinesweeperForm(1, gameMine.Player1.Name, whoBegins).Show();
         }
 
         private void medioToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            timer.Stop();
+            byte whoBegins=(byte) RandomUtil.GetRandomNumber(0, 2);
             this.Hide();
-            new MinesweeperForm(2, gameMine.Player1.Name).Show();
+            new MinesweeperForm(2, gameMine.Player1.Name, whoBegins).Show();
         }
 
         private void dificilToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            timer.Stop();
+            byte whoBegins=(byte) RandomUtil.GetRandomNumber(0, 2);
             this.Hide();
-            new MinesweeperForm(3, gameMine.Player1.Name).Show();
+
+            new MinesweeperForm(3, gameMine.Player1.Name, whoBegins).Show();
         }
 
 
@@ -392,7 +460,7 @@ namespace Minesweeper
 
         }
 
-     
+
 
     }
 }

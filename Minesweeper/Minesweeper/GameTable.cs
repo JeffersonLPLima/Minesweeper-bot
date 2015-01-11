@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,8 +9,7 @@ namespace Minesweeper{
         private int bombs;
         private int rows;
         private int columns;
-        private int nodesRemaining;
-       
+        private int nodesRemaining;       
 
         public Node[,] Table{
             get { return table; }
@@ -96,14 +94,17 @@ namespace Minesweeper{
 
         public void printMatrix(){
 			Console.WriteLine ("======== Campo Minado ========");
-			Console.Write (" ]");
+			Console.Write ("  ]");
 			for (int j = 0; j < columns; j++) {
-				Console.Write ("| "+j+" |");	
+				Console.Write ("| "+(j%10)+" |");	
 			}
 			Console.WriteLine ();
 
 			for(int i = 0; i<rows; i++){
-				Console.Write(i + "]");
+                if(i<10){
+                    Console.Write ("0");
+                }
+                Console.Write(i + "]");
 				for (int j = 0; j < columns; j++){
 					if (table [i, j].Visited) { 
 						Console.Write ("| " + table [i, j].Key + " |");
@@ -114,7 +115,6 @@ namespace Minesweeper{
                 Console.WriteLine();
             }
         }
-
         public void bombFields(int x, int y){
             int randomNumberRows;
             int randomNumberColumns;
@@ -140,6 +140,7 @@ namespace Minesweeper{
 				this.nodesRemaining -= 1;
                 if(node.Key==0){
                     for (int i = 0; i < node.Neighborhood.Count; i++) {
+                        
                         expand(node.Neighborhood[i]);
                     }
 

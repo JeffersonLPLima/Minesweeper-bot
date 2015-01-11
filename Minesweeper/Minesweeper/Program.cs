@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-namespace Minesweeper{
+namespace Minesweeper
+{
     class Program
     {
 
-       public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            //Thread t = new Thread(new ThreadStart(Forms.Forms.RunForms));
-            // t.Start();
-            Forms.Forms.RunForms();
-           //Forms.AboutForm.runAboutForms();
+             Forms.Forms.RunForms();
         }
-      
-
+     
     }
+           
+
 }

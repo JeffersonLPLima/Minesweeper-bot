@@ -30,10 +30,10 @@
         {
             System.Windows.Forms.Panel detailspanel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MinesweeperForm));
-            smilleButton = new System.Windows.Forms.Button();
-            memButton = new System.Windows.Forms.Button();
-            this.RemainingBombs = new System.Windows.Forms.Label();
-            this.timeRemainingLabel = new System.Windows.Forms.Label();
+            pictureBoxSmille = new System.Windows.Forms.PictureBox();
+            pictureBoxMeme = new System.Windows.Forms.PictureBox();
+            RemainingBombs = new System.Windows.Forms.Label();
+            timeRemainingLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Player2NameLabel = new System.Windows.Forms.Label();
             this.Player1NameLabel = new System.Windows.Forms.Label();
@@ -52,6 +52,8 @@
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             detailspanel = new System.Windows.Forms.Panel();
             detailspanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(pictureBoxSmille)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(pictureBoxMeme)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,10 +64,10 @@
             detailspanel.AutoSize = true;
             detailspanel.BackColor = System.Drawing.SystemColors.ButtonFace;
             detailspanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            detailspanel.Controls.Add(smilleButton);
-            detailspanel.Controls.Add(memButton);
-            detailspanel.Controls.Add(this.RemainingBombs);
-            detailspanel.Controls.Add(this.timeRemainingLabel);
+            detailspanel.Controls.Add(pictureBoxSmille);
+            detailspanel.Controls.Add(pictureBoxMeme);
+            detailspanel.Controls.Add(RemainingBombs);
+            detailspanel.Controls.Add(timeRemainingLabel);
             detailspanel.Controls.Add(this.label4);
             detailspanel.Controls.Add(this.Player2NameLabel);
             detailspanel.Controls.Add(this.Player1NameLabel);
@@ -76,45 +78,47 @@
             detailspanel.Size = new System.Drawing.Size(444, 108);
             detailspanel.TabIndex = 1;
             // 
-            // smilleButton
+            // pictureBoxSmille
             // 
-            smilleButton.Enabled = false;
-            smilleButton.Image = global::Minesweeper.Properties.Resources._318_52014;
-            smilleButton.Location = new System.Drawing.Point(218, 7);
-            smilleButton.Name = "smilleButton";
-            smilleButton.Size = new System.Drawing.Size(69, 69);
-            smilleButton.TabIndex = 10;
-            smilleButton.UseVisualStyleBackColor = true;
+            pictureBoxSmille.Image = global::Minesweeper.Properties.Resources.oie_transparent__1_;
+            pictureBoxSmille.InitialImage = global::Minesweeper.Properties.Resources.trollface_meme;
+            pictureBoxSmille.Location = new System.Drawing.Point(218, 7);
+            pictureBoxSmille.Name = "pictureBoxSmille";
+            pictureBoxSmille.Size = new System.Drawing.Size(72, 71);
+            pictureBoxSmille.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            pictureBoxSmille.TabIndex = 12;
+            pictureBoxSmille.TabStop = false;
             // 
-            // memButton
+            // pictureBoxMeme
             // 
-            memButton.Enabled = false;
-            memButton.Image = global::Minesweeper.Properties.Resources.trollface_meme;
-            memButton.Location = new System.Drawing.Point(116, 7);
-            memButton.Name = "memButton";
-            memButton.Size = new System.Drawing.Size(69, 69);
-            memButton.TabIndex = 11;
-            memButton.UseVisualStyleBackColor = true;
+            pictureBoxMeme.Image = global::Minesweeper.Properties.Resources.oie_transparent;
+            pictureBoxMeme.InitialImage = global::Minesweeper.Properties.Resources.trollface_meme;
+            pictureBoxMeme.Location = new System.Drawing.Point(104, 7);
+            pictureBoxMeme.Name = "pictureBoxMeme";
+            pictureBoxMeme.Size = new System.Drawing.Size(72, 71);
+            pictureBoxMeme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            pictureBoxMeme.TabIndex = 11;
+            pictureBoxMeme.TabStop = false;
             // 
             // RemainingBombs
             // 
-            this.RemainingBombs.AutoSize = true;
-            this.RemainingBombs.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold);
-            this.RemainingBombs.Location = new System.Drawing.Point(13, 46);
-            this.RemainingBombs.Name = "RemainingBombs";
-            this.RemainingBombs.Size = new System.Drawing.Size(49, 32);
-            this.RemainingBombs.TabIndex = 9;
-            this.RemainingBombs.Text = "00";
+            RemainingBombs.AutoSize = true;
+            RemainingBombs.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold);
+            RemainingBombs.Location = new System.Drawing.Point(13, 46);
+            RemainingBombs.Name = "RemainingBombs";
+            RemainingBombs.Size = new System.Drawing.Size(49, 32);
+            RemainingBombs.TabIndex = 9;
+            RemainingBombs.Text = "00";
             // 
             // timeRemainingLabel
             // 
-            this.timeRemainingLabel.AutoSize = true;
-            this.timeRemainingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeRemainingLabel.Location = new System.Drawing.Point(350, 46);
-            this.timeRemainingLabel.Name = "timeRemainingLabel";
-            this.timeRemainingLabel.Size = new System.Drawing.Size(49, 32);
-            this.timeRemainingLabel.TabIndex = 8;
-            this.timeRemainingLabel.Text = "10";
+            timeRemainingLabel.AutoSize = true;
+            timeRemainingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            timeRemainingLabel.Location = new System.Drawing.Point(350, 46);
+            timeRemainingLabel.Name = "timeRemainingLabel";
+            timeRemainingLabel.Size = new System.Drawing.Size(49, 32);
+            timeRemainingLabel.TabIndex = 8;
+            timeRemainingLabel.Text = "10";
             // 
             // label4
             // 
@@ -173,7 +177,7 @@
             this.panelMatriz.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panelMatriz.Location = new System.Drawing.Point(12, 171);
             this.panelMatriz.Name = "panelMatriz";
-            this.panelMatriz.Size = new System.Drawing.Size(444, 326);
+            this.panelMatriz.Size = new System.Drawing.Size(95, 103);
             this.panelMatriz.TabIndex = 0;
             // 
             // menuStrip1
@@ -203,34 +207,34 @@
             this.médioToolStripMenuItem1,
             this.difícilToolStripMenuItem1});
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.novoToolStripMenuItem.Text = "Novo";
             // 
             // fácilToolStripMenuItem1
             // 
             this.fácilToolStripMenuItem1.Name = "fácilToolStripMenuItem1";
-            this.fácilToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
+            this.fácilToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
             this.fácilToolStripMenuItem1.Text = "Fácil";
             this.fácilToolStripMenuItem1.Click += new System.EventHandler(this.facilToolStripMenuItem1_Click);
             // 
             // médioToolStripMenuItem1
             // 
             this.médioToolStripMenuItem1.Name = "médioToolStripMenuItem1";
-            this.médioToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
+            this.médioToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
             this.médioToolStripMenuItem1.Text = "Médio";
             this.médioToolStripMenuItem1.Click += new System.EventHandler(this.medioToolStripMenuItem1_Click);
             // 
             // difícilToolStripMenuItem1
             // 
             this.difícilToolStripMenuItem1.Name = "difícilToolStripMenuItem1";
-            this.difícilToolStripMenuItem1.Size = new System.Drawing.Size(175, 24);
+            this.difícilToolStripMenuItem1.Size = new System.Drawing.Size(121, 24);
             this.difícilToolStripMenuItem1.Text = "Difícil";
             this.difícilToolStripMenuItem1.Click += new System.EventHandler(this.dificilToolStripMenuItem1_Click);
             // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -246,13 +250,13 @@
             // tutorialToolStripMenuItem
             // 
             this.tutorialToolStripMenuItem.Name = "tutorialToolStripMenuItem";
-            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.tutorialToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
             this.tutorialToolStripMenuItem.Text = "Tutorial";
             // 
             // sobreToolStripMenuItem
             // 
             this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(129, 24);
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.sobreToolStripMenuItem_Click);
             // 
@@ -275,6 +279,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             detailspanel.ResumeLayout(false);
             detailspanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(pictureBoxSmille)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(pictureBoxMeme)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -300,13 +306,13 @@
         private System.Windows.Forms.ToolStripMenuItem médioToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem difícilToolStripMenuItem1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label timeRemainingLabel;
-        private System.Windows.Forms.Label RemainingBombs;
+        private static System.Windows.Forms.Label timeRemainingLabel;
+        public static System.Windows.Forms.Label RemainingBombs;
         public static System.Windows.Forms.Button[][] btn;
         public static System.Windows.Forms.Timer timer;
-        public static System.Windows.Forms.Button memButton;
-        public static System.Windows.Forms.Button smilleButton;
-        
+        private static System.Windows.Forms.PictureBox pictureBoxMeme;
+        private static System.Windows.Forms.PictureBox pictureBoxSmille;
+
     }
-        
+
 }

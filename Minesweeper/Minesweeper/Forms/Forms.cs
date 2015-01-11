@@ -14,15 +14,19 @@ namespace Minesweeper.Forms
     {
         int difficulty;
         String name;
+
         public Forms()
         {
             InitializeComponent();
         }
+
         public static void RunForms()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new Forms());
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -45,15 +49,18 @@ namespace Minesweeper.Forms
 
             if (textBox1.Text != "")
             {
+
+                byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
                 this.Hide();
-                MinesweeperForm frm = new MinesweeperForm(difficulty, name);
+                MinesweeperForm frm = new MinesweeperForm(difficulty, name, whoBegins);
                 frm.Show();
 
             }
             else
             {
+                byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
                 this.Hide();
-                MinesweeperForm frm = new MinesweeperForm(difficulty, "unnamed");
+                MinesweeperForm frm = new MinesweeperForm(difficulty, "unnamed", whoBegins);
                 frm.Show();
             }
        }
