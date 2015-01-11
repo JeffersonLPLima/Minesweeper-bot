@@ -141,8 +141,7 @@ namespace Minesweeper{
                 Console.WriteLine ("Bombas: "+this.table.Bombs);
 		        Console.WriteLine ("Casas restantes: "+this.table.NodesRemaining);
 				update2 ();
-          
-			}
+	}
 		}
 
 		public Player getTurnPlayer(){
@@ -159,7 +158,7 @@ namespace Minesweeper{
 			Position pos;
 
 			do {
-				
+
                 pos = player.play (this.Table);
                
                 try {
@@ -174,8 +173,7 @@ namespace Minesweeper{
                 }catch(Exception ex){
                         Console.WriteLine(ex.Message);
                }
-               
-			} while(!flag);
+            } while(!flag);
             
 			this.round += 1;
 			this.lastRound[0] = pos.X;

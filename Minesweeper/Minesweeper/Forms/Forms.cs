@@ -50,15 +50,17 @@ namespace Minesweeper.Forms
             if (textBox1.Text != "")
             {
 
-                byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
+               byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
                 this.Hide();
                 MinesweeperForm frm = new MinesweeperForm(difficulty, name, whoBegins);
+
                 frm.Show();
 
             }
             else
             {
-                byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
+               byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
+
                 this.Hide();
                 MinesweeperForm frm = new MinesweeperForm(difficulty, "unnamed", whoBegins);
                 frm.Show();

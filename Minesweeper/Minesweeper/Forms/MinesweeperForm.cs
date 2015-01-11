@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Media;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
@@ -81,10 +80,10 @@ namespace Minesweeper
            
             userBombsRemaining = gameMine.Table.Bombs;
             gameMine.Player1.Name = name;
-           
 
             InitializeComponent();
         }
+
 
 
 
@@ -94,6 +93,7 @@ namespace Minesweeper
         {
 
             if (gameMine.Round % 2 == 0 && gameMine.Active)
+
             {
 
                 String[] pos = ((Button)sender).Name.Split(',');
@@ -171,6 +171,7 @@ namespace Minesweeper
             Image img = Image.FromFile(noDesmImg);
             panelMatriz.Size = new Size(25 * matrizY, 25 * matrizX);
       
+
             btn = new Button[matrizX][];
             for (int y = 0; y< matrizX; y++)
             {
@@ -220,6 +221,7 @@ namespace Minesweeper
 
                 }
             }
+
           
             
 
@@ -238,6 +240,7 @@ namespace Minesweeper
                 MessageBox.Show(gameMine.getTurnPlayer().Name + " Ganhou!!", "Minesweeper");
                 
             }
+
         }
         
 
@@ -248,7 +251,7 @@ namespace Minesweeper
         /// </summary>
         public static void updateTable()
         {
-            
+
             int matrizX = gameMine.Table.Rows;
             int matrizY = gameMine.Table.Columns;
             Console.WriteLine("Tabuleiro no MinesweeperForms");
@@ -336,6 +339,7 @@ namespace Minesweeper
 
 
 
+
         public void RunMinesweeperForms(int difficulty, String name)
         {
 
@@ -345,7 +349,9 @@ namespace Minesweeper
            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new MinesweeperForm(difficulty, name, whoBegins));
+
 
 
 
@@ -384,8 +390,13 @@ namespace Minesweeper
             timeRemainingLabel.Text = timeRemaining.ToString();
             if (timeRemaining == 0){
                 timer.Stop();
+
                 timeRemainingLabel.Text = 0.ToString();
                 randomPlay();
+                MessageBox.Show("O Tempo acabou!!\nVocê Perdeu " + Player1NameLabel.Text, "Minesweeper");
+                gameMine.Round = 1;
+                showTableBombs();
+
             }
 
         }
