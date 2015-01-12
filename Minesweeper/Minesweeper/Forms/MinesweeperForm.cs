@@ -30,7 +30,6 @@ namespace Minesweeper
         private static String mineImg = "Forms/Images/mine.JPG";
         private static String flagImg = "Forms/Images/flag.JPG";
 
-       
         private static int timeRemaining;
         private static bool click;
         private static Game gameMine;
@@ -38,11 +37,18 @@ namespace Minesweeper
         private static int initialTime;
         public static int userBombsRemaining;
        
-
+        /// <summary>
+        /// builder
+        /// </summary>
+        /// <param name="difficulty"></param>
+        /// <param name="name"></param>
+        /// <param name="whoBegins"></param>
         public MinesweeperForm(int difficulty, String name, byte whoBegins)
         {
-            CheckForIllegalCrossThreadCalls = true;
-            
+            CheckForIllegalCrossThreadCalls = false;
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 1000;
+            timer.Tick += new System.EventHandler(this.timer1_Tick);
             click = true;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             if (difficulty == 1) { 
@@ -69,6 +75,7 @@ namespace Minesweeper
                 thread = new Thread(new ThreadStart(gameMine.run));
                 thread.Start();
                 gameMine.Round = 1;
+                timer.Start();
                 
             }
             else
@@ -88,7 +95,11 @@ namespace Minesweeper
 
 
 
-
+        /// <summary>
+        /// get button event - left and right - click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void btnEvent_Click(object sender, MouseEventArgs e)
         {
 
@@ -153,12 +164,14 @@ namespace Minesweeper
             }
 
         }
-
+        /// <summary>
+        /// Loag Table Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void MinesweeperForm_Load(object sender, EventArgs e)
         {
-            timer = new System.Windows.Forms.Timer();   
-            timer.Interval = 1000;
-            timer.Tick += new System.EventHandler(this.timer1_Tick);
+            
             timeRemainingLabel.Text = timeRemaining.ToString();
 
             RemainingBombs.Text = userBombsRemaining.ToString(); ;
@@ -197,6 +210,10 @@ namespace Minesweeper
             }
             this.panelMatriz.Location = new System.Drawing.Point(this.Size.Width / 2 - this.panelMatriz.Size.Width / 2, 171);
         }
+
+        /// <summary>
+        /// Show Bombs in the Table
+        /// </summary>
         public static void showTableBombs()
         {
             timer.Stop();
@@ -338,7 +355,13 @@ namespace Minesweeper
 
 
 
-
+        /// <summary>
+        /// Run MinesweeperForms
+        /// Enable Visual Styles
+        /// 
+        /// </summary>
+        /// <param name="difficulty"></param>
+        /// <param name="name"></param>
 
         public void RunMinesweeperForms(int difficulty, String name)
         {
@@ -357,7 +380,11 @@ namespace Minesweeper
 
           
         }
-
+        /// <summary>
+        /// Close the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onFormClosing(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
@@ -383,19 +410,24 @@ namespace Minesweeper
             }
 
         }
+
+        /// <summary>
+        /// Timer Countdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void timer1_Tick(object sender, EventArgs e)
         {
             
             timeRemaining--;
             timeRemainingLabel.Text = timeRemaining.ToString();
             if (timeRemaining == 0){
-                timer.Stop();
 
+                timer.Stop();
                 timeRemainingLabel.Text = 0.ToString();
                 randomPlay();
-                MessageBox.Show("O Tempo acabou!!\nVocê Perdeu " + Player1NameLabel.Text, "Minesweeper");
-                gameMine.Round = 1;
-                showTableBombs();
+             
+               
 
             }
 
@@ -428,6 +460,11 @@ namespace Minesweeper
 
             }
         }
+        /// <summary>
+        /// Begins a new easy game with menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void facilToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
@@ -436,6 +473,11 @@ namespace Minesweeper
             new MinesweeperForm(1, gameMine.Player1.Name, whoBegins).Show();
         }
 
+        /// <summary>
+        /// Begins a new medium game with menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void medioToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             timer.Stop();
@@ -443,7 +485,11 @@ namespace Minesweeper
             this.Hide();
             new MinesweeperForm(2, gameMine.Player1.Name, whoBegins).Show();
         }
-
+        /// <summary>
+        /// Begins a new hard game with menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dificilToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             timer.Stop();
@@ -454,7 +500,11 @@ namespace Minesweeper
         }
 
 
-
+        /// <summary>
+        /// Finish the game/application with menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Deseja sair do jogo ?", "Minesweeper", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -464,7 +514,11 @@ namespace Minesweeper
                     thread.Abort();
             }
         }
-
+        /// <summary>
+        /// About menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sobreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new Forms.AboutForm().Show();

@@ -168,7 +168,6 @@
     <Compile Include="RandomUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Minesweeper_TemporaryKey.pfx" />
     <None Include="Resources\_318-52014.png" />
   </ItemGroup>
   <ItemGroup>
@@ -227,7 +226,6 @@
     <None Include="Resources\ico.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="favicon.ico" />
     <None Include="Resources\favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

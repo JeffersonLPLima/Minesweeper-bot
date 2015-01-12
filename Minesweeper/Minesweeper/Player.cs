@@ -10,8 +10,15 @@ namespace Minesweeper{
 		protected int bombsFound;
         protected GameTable gameTableBombsFound;
 
+        /// <summary>
+        /// Builder of the Player
+        /// </summary>
+        /// <param name="name">Player name </param>
+        /// <param name="rows"> number of rows in the table </param>
+        /// <param name="columns">number of columns in the table</param>
+       
 		public Player(String name, int rows, int columns){
-
+            LastPosition = new Position(0, 0);
 			this.name = name;
             this.gameTableBombsFound = new GameTable(rows, columns);
 		}

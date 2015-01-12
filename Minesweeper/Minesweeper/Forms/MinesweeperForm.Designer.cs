@@ -308,6 +308,8 @@
         private System.Windows.Forms.Label label4;
         private static System.Windows.Forms.Label timeRemainingLabel;
         public static System.Windows.Forms.Label RemainingBombs;
+
+
         public static System.Windows.Forms.Button[][] btn;
         public static System.Windows.Forms.Timer timer;
         private static System.Windows.Forms.PictureBox pictureBoxMeme;

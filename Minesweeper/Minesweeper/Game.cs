@@ -161,18 +161,17 @@ namespace Minesweeper{
 
                 pos = player.play (this.Table);
                
-                try {
+              try {
                    
                     if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) &&
-                        (!this.table.Table[pos.X, pos.Y].Visited))
-                    {
+                        (!this.table.Table[pos.X, pos.Y].Visited)){
 
                         if (round % 2 != 0) Thread.Sleep(1000);
                         flag = true;
-                    }
+                     }
                 }catch(Exception ex){
-                        Console.WriteLine(ex.Message);
-               }
+                      Console.WriteLine(ex.Message);
+              }
             } while(!flag);
             
 			this.round += 1;

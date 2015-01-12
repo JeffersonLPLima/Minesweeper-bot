@@ -5,26 +5,7 @@ namespace Minesweeper{
 
 		private int x;
 		private int y;
-        private int numero;
-        public int Numero
-        {
-            get { return numero; }
-            set { numero = value; }
-        }
-        public int getNumero()
-        {
-            numero += 1;
-            return numero;
-        }
-        public int quadrado(int x)
-        {
-            if (false)
-            {
-                Console.WriteLine("Numero: " + x);
-            }
-            return numero * numero;
-        }
-		public int X{
+        public int X{
 			get { return x; }
 			set { x = value; }
 		}
@@ -33,7 +14,11 @@ namespace Minesweeper{
 			get { return y; }
 			set { y = value; }
 		}
-
+        /// <summary>
+        /// Builder of Position
+        /// </summary>
+        /// <param name="x"> position X</param>
+        /// <param name="y"> position Y</param>
 		public Position (int x, int y){
 			this.x = x;
 			this.y = y;
