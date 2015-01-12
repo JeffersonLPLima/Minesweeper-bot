@@ -12,7 +12,7 @@ namespace Minesweeper.Forms
 {
     public partial class Forms : Form
     {
-        int difficulty;
+        
         String name;
 
         public Forms()
@@ -39,6 +39,7 @@ namespace Minesweeper.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
+            byte difficulty;
             if (radioButtonFacil.Checked) difficulty = 1;
             
             else if (radioButtonNormal.Checked) difficulty = 2;

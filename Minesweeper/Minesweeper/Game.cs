@@ -16,12 +16,19 @@ namespace Minesweeper{
 		private GameTable table;
         private Player player1, player2;
         private int round;
-        private int[] lastRound;
+        private byte difficulty;
+        
 		private bool active;
         
         public GameTable Table{
             get { return table; }
             set { table = value; }
+        }
+
+        public byte Difficulty
+        {
+            get { return difficulty; }
+            set { difficulty = value; }
         }
 
 
@@ -42,11 +49,6 @@ namespace Minesweeper{
             set { round = value; }
         }
 
-        public int[] LastRound{
-            get { return lastRound; }
-            set { lastRound = value; }
-        }
-
 		public bool Active{
 			get { return active; }
 			set { active = value; }
@@ -59,19 +61,43 @@ namespace Minesweeper{
         /// <param name="player1">Player name</param>
         /// <param name="tableRows">Table rows.</param>
         /// <param name="tableColumns">Table columns.</param>
-      public Game(String player1, int tableRows, int tableColumns){
+        public Game(String player1, byte difficulty, byte whoBegins)
+        {
+
+            int tableRows ;
+            int tableColumns;
+            if (whoBegins == 0)
+                this.round= 1;
+                
+            
+
+            if (difficulty == 1)
+            {
+                tableRows = 8;
+                tableColumns = 8;
+            }
+            else if (difficulty == 2)
+            {
+                tableRows = 16;
+                tableColumns = 16;
+            }
+            else
+            {
+                tableRows = 16;
+                tableColumns = 30;
+            }
 			this.player1 = new Human(player1, tableRows, tableColumns);
 			this.player2 = new Bot ("The B0T", tableRows, tableColumns);
-
+            this.difficulty = difficulty;
             this.table = new GameTable(tableRows, tableColumns);
-            this.lastRound = new int[2];
+           
 
         }
 
-		public void update2(){
+		public void update(){
 			Player player = getTurnPlayer(); //Current player
 
-			Position pos = move(player);
+			Position pos = getPlayerMove(player);
            
 			if (this.table.setPos (pos.X, pos.Y)) {
 				//Console.Clear ();
@@ -96,7 +122,7 @@ namespace Minesweeper{
 			} else {
 				//Console.Clear ();
 
-//                MinesweeperForm.playWav();
+//              MinesweeperForm.playWav();
                 this.Table.showBombs ();
            
                 MinesweeperForm.showTableBombs();
@@ -114,7 +140,7 @@ namespace Minesweeper{
 			table.printMatrix();
 
 			//First move
-			Position pos = move (getTurnPlayer());
+			Position pos = getPlayerMove (getTurnPlayer());
 
 			//Console.Clear();
             table.bombFields (pos.Y,pos.Y);
@@ -140,7 +166,7 @@ namespace Minesweeper{
                 this.table.printMatrix();
                 Console.WriteLine ("Bombas: "+this.table.Bombs);
 		        Console.WriteLine ("Casas restantes: "+this.table.NodesRemaining);
-				update2 ();
+				update ();
 	}
 		}
 
@@ -152,31 +178,14 @@ namespace Minesweeper{
 			}
 		}
 
-        private Position move(Player player){
+        private Position getPlayerMove(Player player){
 
-			bool flag = false;
 			Position pos;
-
-			do {
-
-                pos = player.play (this.Table);
-               
-              try {
-                   
-                    if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) &&
-                        (!this.table.Table[pos.X, pos.Y].Visited)){
-
-                        if (round % 2 != 0) Thread.Sleep(1000);
-                        flag = true;
-                     }
-                }catch(Exception ex){
-                      Console.WriteLine(ex.Message);
-              }
-            } while(!flag);
-            
-			this.round += 1;
-			this.lastRound[0] = pos.X;
-			this.lastRound [1] = pos.Y;
+            pos = player.play (this.Table);
+            if (round % 2 != 0)
+                Thread.Sleep(1000);
+            this.round += 1;
+			
 
 			return pos;
 		}
