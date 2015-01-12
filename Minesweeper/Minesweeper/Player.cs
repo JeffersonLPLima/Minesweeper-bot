@@ -33,6 +33,7 @@ namespace Minesweeper{
         }
 
 		abstract public Position play (GameTable gameTable);
+        
         public void randomPlay(GameTable table)
         {
             Position pos;

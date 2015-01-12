@@ -83,7 +83,7 @@ namespace Minesweeper
 
 
         /// <summary>
-        /// get button event - left and right - click
+        /// get event - left and right - click
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

@@ -68,9 +68,7 @@ namespace Minesweeper{
             int tableColumns;
             if (whoBegins == 0)
                 this.round= 1;
-                
-            
-
+           
             if (difficulty == 1)
             {
                 tableRows = 8;

@@ -48,8 +48,7 @@ namespace Minesweeper.Forms
             
             else difficulty = 1;
 
-            if (textBox1.Text != "")
-            {
+            if (textBox1.Text != ""){
 
                byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
                 this.Hide();
@@ -58,8 +57,7 @@ namespace Minesweeper.Forms
                 frm.Show();
 
             }
-            else
-            {
+            else{
                byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
 
                 this.Hide();
