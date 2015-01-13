@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Minesweeper{
     public class Node{
         private List<Node> neighborhood;
         private bool visited;
         private int key;
-        private bool flaged;
+        private bool isFlagged;
         private float probBomb;
         
         public List<Node> Neighborhood{
@@ -16,9 +14,9 @@ namespace Minesweeper{
             set { neighborhood = value; }
         }
 
-        public bool Flaged{
-            get { return flaged; }
-            set { flaged = value; }
+        public bool IsFlagged{
+            get { return isFlagged; }
+            set { isFlagged = value; }
         }
 
         public int Key{
@@ -37,7 +35,7 @@ namespace Minesweeper{
         }
 
         public Node(){
-            this.flaged = false;
+            this.isFlagged = false;
             this.key = -1;
             this.neighborhood = new List<Node>();
         }

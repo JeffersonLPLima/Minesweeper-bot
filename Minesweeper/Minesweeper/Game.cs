@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Media;
 
-
 namespace Minesweeper{
 
     ///<summary>
@@ -16,7 +15,6 @@ namespace Minesweeper{
 		private GameTable table;
         private Player player1, player2;
         private int round;
-        private int[] lastRound;
 		private bool active;
         
         public GameTable Table{
@@ -25,14 +23,12 @@ namespace Minesweeper{
         }
 
 
-        public Player Player1
-        {
+        public Player Player1{
             get { return player1; }
             set { player1 = value; }
         }
 
-        public Player Player2
-        {
+        public Player Player2{
             get { return player2; }
             set { player2 = value; }
         }
@@ -42,16 +38,10 @@ namespace Minesweeper{
             set { round = value; }
         }
 
-        public int[] LastRound{
-            get { return lastRound; }
-            set { lastRound = value; }
-        }
-
 		public bool Active{
 			get { return active; }
 			set { active = value; }
 		}
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Minesweeper.Game"/> class.
@@ -59,16 +49,14 @@ namespace Minesweeper{
         /// <param name="player1">Player name</param>
         /// <param name="tableRows">Table rows.</param>
         /// <param name="tableColumns">Table columns.</param>
-      public Game(String player1, int tableRows, int tableColumns){
+        public Game(String player1, int tableRows, int tableColumns){
 			this.player1 = new Human(player1, tableRows, tableColumns);
 			this.player2 = new Bot ("The B0T", tableRows, tableColumns);
 
             this.table = new GameTable(tableRows, tableColumns);
-            this.lastRound = new int[2];
-
         }
 
-		public void update2(){
+		public void update(){
 			Player player = getTurnPlayer(); //Current player
 
 			Position pos = move(player);
@@ -130,18 +118,15 @@ namespace Minesweeper{
 		}
 
 		public void run(){
-         
-          
             active = true;
 			initialize ();
             
 			while (active) {
-
                 this.table.printMatrix();
                 Console.WriteLine ("Bombas: "+this.table.Bombs);
 		        Console.WriteLine ("Casas restantes: "+this.table.NodesRemaining);
-				update2 ();
-	}
+				update ();
+	        }
 		}
 
 		public Player getTurnPlayer(){
@@ -160,23 +145,22 @@ namespace Minesweeper{
 			do {
 
                 pos = player.play (this.Table);
-               
-              try {
+                Console.WriteLine("Esperando o fdp johgar");
+              //try {
                    
                     if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) &&
                         (!this.table.Table[pos.X, pos.Y].Visited)){
 
-                        if (round % 2 != 0) Thread.Sleep(1000);
+                        if (round % 2 != 0) 
+                            Thread.Sleep(1000);
                         flag = true;
                      }
-                }catch(Exception ex){
-                      Console.WriteLine(ex.Message);
-              }
+               // }catch(Exception ex){
+                      //Console.WriteLine(ex.Message);
+              //}
             } while(!flag);
             
 			this.round += 1;
-			this.lastRound[0] = pos.X;
-			this.lastRound [1] = pos.Y;
 
 			return pos;
 		}

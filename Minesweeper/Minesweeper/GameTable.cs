@@ -37,10 +37,11 @@ namespace Minesweeper{
 		}
 
         public GameTable(int rows, int columns){
-            int k;
+
             this.rows = rows;
             this.columns = columns;
             this.table = new Node[rows, columns];
+
             for (int i = 0; i < rows; i++){
                 for (int j = 0; j < columns; j++){
                     this.table[i,j] = new Node();          
@@ -48,33 +49,21 @@ namespace Minesweeper{
             }
 
             for (int i = 0; i < rows; i++){
-                //Console.WriteLine("i =  "+i);
-				for (int j = 0; j < columns; j++){//para maior que um
-                    // Console.WriteLine("j =  " + j);
-                    k = 0;
+				for (int j = 0; j < columns; j++){
+                    int k = 0;
                     for (int ii = i - 1; ii <= i + 1; ii++){
-                        //Console.WriteLine("ii =  " + ii);
                         for (int jj = j - 1; jj <= j + 1; jj++){
-                            //Console.WriteLine("ii =  " + ii);
-                            //Console.WriteLine("jj =  " + jj);
-                            //Console.ReadLine();
                             if (!((jj == j)&(ii == i))) {
                                 if ((ii == -1) || (ii == this.Rows) || (jj == -1) || (jj == this.Columns )){
                                     this.table[i, j].Neighborhood.Add(null);
                                 }
                                 else{
-                                    //Console.WriteLine("entrou");
                                     this.table[i, j].Neighborhood.Add(this.table[ii, jj]);
-                                    //Console.WriteLine(this.table[i, j].Vizinhanca.Count);
-                                    //this.table[i,j].Vizinhanca[k] = this.table[ii,jj];
-                                    //Console.WriteLine(this.table[i,j].Vizinhanca[k].Key);
                                 }   
                             }
 
                             k += 1;
-                            //Console.WriteLine(k);
                         }
-                        //Console.WriteLine();
                     }
                 }
             }
@@ -115,6 +104,7 @@ namespace Minesweeper{
                 Console.WriteLine();
             }
         }
+
         public void bombFields(int x, int y){
             int randomNumberRows;
             int randomNumberColumns;

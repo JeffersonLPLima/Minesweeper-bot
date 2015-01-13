@@ -11,22 +11,22 @@ namespace Minesweeper{
         protected GameTable gameTableBombsFound;
 
         /// <summary>
-        /// Builder of the Player
+        /// Player Constructor
         /// </summary>
         /// <param name="name">Player name </param>
-        /// <param name="rows"> number of rows in the table </param>
-        /// <param name="columns">number of columns in the table</param>
-       
+        /// <param name="rows"> number of rows of the table </param>
+        /// <param name="columns">number of columns of the table</param>
 		public Player(String name, int rows, int columns){
             LastPosition = new Position(0, 0);
 			this.name = name;
             this.gameTableBombsFound = new GameTable(rows, columns);
 		}
-        public Position LastPosition
-        {
+
+        public Position LastPosition{
             get { return lastPosition; }
             set { lastPosition = value; }
         }
+
 		public String Name{
             get { return name; }
             set { name = value; }

@@ -2,9 +2,9 @@ using System;
 
 namespace Minesweeper{
 	public class Position{
-
 		private int x;
 		private int y;
+
         public int X{
 			get { return x; }
 			set { x = value; }
@@ -14,8 +14,9 @@ namespace Minesweeper{
 			get { return y; }
 			set { y = value; }
 		}
+
         /// <summary>
-        /// Builder of Position
+        /// Position Constructor
         /// </summary>
         /// <param name="x"> position X</param>
         /// <param name="y"> position Y</param>
