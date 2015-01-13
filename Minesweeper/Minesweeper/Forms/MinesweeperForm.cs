@@ -266,7 +266,7 @@ namespace Minesweeper{
         /// <param name="difficulty"></param>
         /// <param name="name"></param>
         public void RunMinesweeperForms(byte difficulty, String name){
-            byte whoBegins=(byte) RandomUtil.GetRandomNumber(0, 2);
+            byte whoBegins=(byte) RandomUtil.getRandomNumber(0, 2);
            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -301,40 +301,13 @@ namespace Minesweeper{
             }
         }
 
-        private void MainForm_KeyDown(object sender, KeyEventArgs k){
-            if(k.Control){
-                switch (k.KeyCode){
-                    case Keys.F:
-                        facilToolStripMenuItem1_Click(sender, k);
-                        break;
-                    
-                    case Keys.M:
-                        medioToolStripMenuItem1_Click(sender, k);
-                        break;
-
-                    case Keys.D:
-                        dificilToolStripMenuItem1_Click(sender, k);
-                        break;
-
-                    case Keys.S:
-                        break;
-
-                    case Keys.F4:
-                        break;
-
-                    case Keys.T:
-                        break;
-                }
-            }
-        }
-
         /// <summary>
         /// Begins a new easy game with menu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void facilToolStripMenuItem1_Click(object sender, EventArgs e){
-            byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
+            byte whoBegins = (byte)RandomUtil.getRandomNumber(0, 2);
             timer.Stop();
             this.Hide();
             new MinesweeperForm(1, gameMine.Player1.Name, whoBegins).Show();
@@ -347,7 +320,7 @@ namespace Minesweeper{
         /// <param name="e"></param>
         private void medioToolStripMenuItem1_Click(object sender, EventArgs e){
             timer.Stop();
-            byte whoBegins=(byte) RandomUtil.GetRandomNumber(0, 2);
+            byte whoBegins=(byte) RandomUtil.getRandomNumber(0, 2);
             this.Hide();
             new MinesweeperForm(2, gameMine.Player1.Name, whoBegins).Show();
         }
@@ -359,7 +332,7 @@ namespace Minesweeper{
         /// <param name="e"></param>
         private void dificilToolStripMenuItem1_Click(object sender, EventArgs e){
             timer.Stop();
-            byte whoBegins=(byte) RandomUtil.GetRandomNumber(0, 2);
+            byte whoBegins=(byte) RandomUtil.getRandomNumber(0, 2);
             this.Hide();
             new MinesweeperForm(3, gameMine.Player1.Name, whoBegins).Show();
         }
@@ -384,7 +357,6 @@ namespace Minesweeper{
         /// <param name="e"></param>
         private void sobreToolStripMenuItem_Click(object sender, EventArgs e){
             new Forms.AboutForm().Show();
-
         }
     }
 }

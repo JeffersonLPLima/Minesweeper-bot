@@ -44,7 +44,7 @@ namespace Minesweeper.Forms{
                 name = "unnamed";
             }
 
-            byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
+            byte whoBegins = (byte)RandomUtil.getRandomNumber(0, 2);
             this.Hide();
 
             MinesweeperForm frm = new MinesweeperForm(difficulty, name, whoBegins);

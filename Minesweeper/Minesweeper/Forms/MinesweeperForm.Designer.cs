@@ -276,7 +276,6 @@
             this.Text = "MinesweeperForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.onFormClosing);
             this.Load += new System.EventHandler(this.MinesweeperForm_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             detailspanel.ResumeLayout(false);
             detailspanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(pictureBoxSmille)).EndInit();

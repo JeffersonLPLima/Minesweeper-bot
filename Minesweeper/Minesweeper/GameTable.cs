@@ -123,8 +123,8 @@ namespace Minesweeper{
             for(int i = 0; i<bombs; i++){
 				bool flag = false;
 				while(!flag){
-					randomNumberRows = RandomUtil.GetRandomNumber (0, Rows);
-					randomNumberColumns = RandomUtil.GetRandomNumber (0, Columns);
+					randomNumberRows = RandomUtil.getRandomNumber (0, Rows);
+					randomNumberColumns = RandomUtil.getRandomNumber (0, Columns);
 
 					if (this.table [randomNumberRows, randomNumberColumns].Key != 10 &&
 					    (randomNumberRows != x && randomNumberColumns!=y)) {

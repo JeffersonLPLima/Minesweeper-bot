@@ -61,7 +61,7 @@ namespace Minesweeper{
         /// Gets a list of not yet visited Nodes
         /// </summary>
         /// <returns>The neighborhood visible.</returns>
-		public List<Node> getNeighborhoodVisible(){
+		public List<Node> getVisibleNeighborhood(){
 			List<Node> neighborhoodVisible = new List<Node>();
 
 			for (int i = 0; i < this.neighborhood.Count; i++) {

@@ -65,7 +65,7 @@ namespace Minesweeper{
                     if (node.Visited && node.Key != 0){
 
                         // Get a list of visible adjacents nodes  (neighborhood)
-                        List<Node> neighborhoodVisible = node.getNeighborhoodVisible();
+                        List<Node> neighborhoodVisible = node.getVisibleNeighborhood();
 
                         // There is at least one adjacent node
                         if (neighborhoodVisible.Count > 0){
@@ -119,7 +119,7 @@ namespace Minesweeper{
                         // Get the amount of bombs marked on the neighborhood
                         int markedBombs = getMarkedBombs(new Position(i, j));
 
-                        if (markedBombs == currentNode.Key && currentNode.getNeighborhoodVisible().Count > currentNode.Key){
+                        if (markedBombs == currentNode.Key && currentNode.getVisibleNeighborhood().Count > currentNode.Key){
                             Node node = this.tableBombsFound.Table[i, j];
 
                             for (int k = 0; k < node.Neighborhood.Count; k++){
@@ -178,7 +178,7 @@ namespace Minesweeper{
                     }else if (node.Visited) {
                         if (node.Key != 0) {
                             // Get a list of visible adjacents nodes  (neighborhood)
-                            List<Node> neighborhoodVisible = node.getNeighborhoodVisible ();
+                            List<Node> neighborhoodVisible = node.getVisibleNeighborhood ();
                      
                             // There is at least one adjacent node
                             if (neighborhoodVisible.Count > 0) {

@@ -42,7 +42,7 @@ namespace Minesweeper{
             Position pos;
             bool flag = false;
             while (!flag){
-                pos = new Position(RandomUtil.GetRandomNumber(0, table.Rows), RandomUtil.GetRandomNumber(0, table.Columns));
+                pos = new Position(RandomUtil.getRandomNumber(0, table.Rows), RandomUtil.getRandomNumber(0, table.Columns));
                 if (!table.Table[pos.X, pos.Y].Visited){
                     // Position not yet visited
                     LastPosition = pos;
