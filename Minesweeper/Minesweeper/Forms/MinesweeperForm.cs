@@ -130,8 +130,6 @@ namespace Minesweeper
                 {
                     if (!gameMine.Table.Table[posx, posy].Visited && !gameMine.Table.Table[posx, posy].Flaged)
                     {
-                        timeRemaining = initialTime;
-                        timeRemainingLabel.Text = initialTime.ToString();
                         Console.WriteLine(((Button)sender).Name);
 
                         Position positionClicked = new Position(posx, posy);
@@ -250,7 +248,6 @@ namespace Minesweeper
 
         /// <summary>
         /// Update Rendered Table
-        /// 
         /// </summary>
         public static void updateTable()
         {
@@ -326,6 +323,9 @@ namespace Minesweeper
 
                     }
                 }
+                timeRemaining = initialTime;
+                timeRemainingLabel.Text = initialTime.ToString();
+                        
             }
            
             if (gameMine.Table.NodesRemaining == 0){
