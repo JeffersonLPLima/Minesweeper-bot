@@ -27,7 +27,7 @@ namespace Minesweeper{
         private static String flagImg = "Forms/Images/flag.JPG";
 
         private static int timeRemaining;
-        private static bool click;
+        private static bool firstClick;
         private static Game gameMine;
         public static Thread thread;
         private static int initialTime;
@@ -39,41 +39,30 @@ namespace Minesweeper{
         /// <param name="difficulty"></param>
         /// <param name="name"></param>
         /// <param name="whoBegins"></param>
-        public MinesweeperForm(int difficulty, String name, byte whoBegins){
+
+        public MinesweeperForm(byte difficulty, String name, byte whoBegins){
             CheckForIllegalCrossThreadCalls = false;
 
             timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000;
             timer.Tick += new System.EventHandler(this.timer1_Tick);
 
-            click = true;
+            firstClick = true;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            if (difficulty == 1) { 
-                gameMine = new Game(name, 8, 8);
-                initialTime = 15;
-                timeRemaining = initialTime;
-            }else if (difficulty == 2) {
-                gameMine = new Game(name, 16, 16);
-                initialTime = 13;
-                timeRemaining = initialTime;
-            }else { 
-                gameMine = new Game(name, 16, 30);
-                initialTime = 10;
-                timeRemaining = initialTime;
-            }
+            gameMine = new Game(name, difficulty, whoBegins);
            
-            if (whoBegins == 0){
-                MessageBox.Show("The B0T começa!", " Minesweeper ");
-                click = false;
+            initialTime = 10;
+            timeRemaining = initialTime;
+           
+            if (gameMine.Round == 1){
+                MessageBox.Show(gameMine.Player2.Name + " começa!", " Minesweeper ");
+                firstClick = false;
                 thread = new Thread(new ThreadStart(gameMine.run));
                 thread.Start();
-                gameMine.Round = 1;
                 timer.Start();
+            }else{
+                MessageBox.Show(gameMine.Player1.Name+" começa!", " Minesweeper ");
             }
-            else{
-                MessageBox.Show(name+" começa!", " Minesweeper ");
-            }
-
            
             userBombsRemaining = gameMine.Table.Bombs;
             gameMine.Player1.Name = name;
@@ -82,7 +71,7 @@ namespace Minesweeper{
         }
 
         /// <summary>
-        /// get button event - left and right - click
+        /// get event - left and right - click
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -115,27 +104,23 @@ namespace Minesweeper{
                         }
                     }
                 }
+
                 else{
-                    if (!gameMine.Table.Table[posx, posy].Visited){
-                        timeRemaining = initialTime;
-                        timeRemainingLabel.Text = initialTime.ToString();
+                    if (!gameMine.Table.Table[posx, posy].Visited && !gameMine.Table.Table[posx, posy].IsFlagged){
                         Console.WriteLine(((Button)sender).Name);
-
                         Position positionClicked = new Position(posx, posy);
-
                         gameMine.Player1.LastPosition = positionClicked;
                     }
-                    if (click){
-                        click = false;
+
+                    if (firstClick){
+                        firstClick = false;
                         thread = new Thread(new ThreadStart(gameMine.run));
 
                         thread.Start();
                         timer.Start();
-
                     }
                 }
             }
-
         }
 
         /// <summary>
@@ -186,9 +171,8 @@ namespace Minesweeper{
 
             int matrizX = gameMine.Table.Rows;
             int matrizY = gameMine.Table.Columns;
-            Console.WriteLine("Bombas no tabuleiro");
+           
             gameMine.Table.showBombs();
-            Console.WriteLine("=======================");
             Image img;
 
             for (int x = 0; x < matrizX; x++){
@@ -261,6 +245,9 @@ namespace Minesweeper{
                         }
                     }
                 }
+                timeRemaining = initialTime;
+                timeRemainingLabel.Text = initialTime.ToString();
+                        
             }
            
             if (gameMine.Table.NodesRemaining == 0){
@@ -276,12 +263,10 @@ namespace Minesweeper{
         /// <summary>
         /// Run MinesweeperForms
         /// Enable Visual Styles
-        /// 
         /// </summary>
         /// <param name="difficulty"></param>
         /// <param name="name"></param>
-
-        public void RunMinesweeperForms(int difficulty, String name){
+        public void RunMinesweeperForms(byte difficulty, String name){
             byte whoBegins=(byte) RandomUtil.GetRandomNumber(0, 2);
            
             Application.EnableVisualStyles();
@@ -299,25 +284,6 @@ namespace Minesweeper{
             Environment.Exit(0);
         }
 
-        public void randomPlay(){
-            Position pos;
-            bool flag = false;
-
-            while (!flag){
-                pos = new Position(RandomUtil.GetRandomNumber(0, gameMine.Table.Rows), RandomUtil.GetRandomNumber(0, gameMine.Table.Columns));
-                Console.WriteLine("Posição sorteada = X: " + pos.X + " Y: " + pos.Y);
-
-                if (!gameMine.Table.Table[pos.X, pos.Y].Visited){
-                    timeRemaining = initialTime;
-                    timeRemainingLabel.Text = timeRemaining.ToString();
-                    timer.Start();
-                    gameMine.Player1.LastPosition = pos;
-                    gameMine.Player1.play(gameMine.Table);
-                    flag = true;
-                }
-            }
-        }
-
         /// <summary>
         /// Timer Countdown
         /// </summary>
@@ -329,11 +295,12 @@ namespace Minesweeper{
 
             if (timeRemaining == 0){
                 timer.Stop();
-                timeRemainingLabel.Text = 0.ToString();
-                randomPlay();
+                timeRemaining = initialTime;
+                timeRemainingLabel.Text = timeRemaining.ToString();
+                gameMine.Player1.randomPlay(gameMine.Table);
+                timer.Start();
             }
         }
-
 
         private void MainForm_KeyDown(object sender, KeyEventArgs k){
             if(k.Control){

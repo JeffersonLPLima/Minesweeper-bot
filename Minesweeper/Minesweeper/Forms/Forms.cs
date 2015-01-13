@@ -9,7 +9,6 @@ using System.Threading;
 
 namespace Minesweeper.Forms{
     public partial class Forms : Form{
-        int difficulty;
         String name;
 
         public Forms(){
@@ -31,15 +30,15 @@ namespace Minesweeper.Forms{
         }
 
         private void button1_Click(object sender, EventArgs e){
-            if (radioButtonFacil.Checked) 
-                difficulty = 1;
-            else if (radioButtonNormal.Checked) 
+            byte difficulty;
+
+            if (radioButtonNormal.Checked) 
                 difficulty = 2;
+
             else if (radioButtonDificil.Checked) 
                 difficulty = 3;
-            else { 
-                difficulty = 1;
-            }
+
+            else difficulty = 1;
 
             if (textBox1.Text == ""){
                 name = "unnamed";
@@ -47,9 +46,10 @@ namespace Minesweeper.Forms{
 
             byte whoBegins = (byte)RandomUtil.GetRandomNumber(0, 2);
             this.Hide();
+
             MinesweeperForm frm = new MinesweeperForm(difficulty, name, whoBegins);
             frm.Show();
-       }
+        }
 
         private void textBox1_TextChanged(object sender, EventArgs e){
             name = textBox1.Text;

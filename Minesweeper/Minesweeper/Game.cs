@@ -15,6 +15,7 @@ namespace Minesweeper{
 		private GameTable table;
         private Player player1, player2;
         private int round;
+        private byte difficulty;
 		private bool active;
         
         public GameTable Table{
@@ -22,6 +23,10 @@ namespace Minesweeper{
             set { table = value; }
         }
 
+        public byte Difficulty{
+            get { return difficulty; }
+            set { difficulty = value; }
+        }
 
         public Player Player1{
             get { return player1; }
@@ -49,17 +54,35 @@ namespace Minesweeper{
         /// <param name="player1">Player name</param>
         /// <param name="tableRows">Table rows.</param>
         /// <param name="tableColumns">Table columns.</param>
-        public Game(String player1, int tableRows, int tableColumns){
+
+        public Game(String player1, byte difficulty, byte whoBegins){
+            int tableRows ;
+            int tableColumns;
+
+            if (whoBegins == 0)
+                this.round= 1;
+           
+            if (difficulty == 1){
+                tableRows = 8;
+                tableColumns = 8;
+            }else if (difficulty == 2){
+                tableRows = 16;
+                tableColumns = 16;
+            }else{
+                tableRows = 16;
+                tableColumns = 30;
+            }
+
 			this.player1 = new Human(player1, tableRows, tableColumns);
 			this.player2 = new Bot ("The B0T", tableRows, tableColumns);
-
+            this.difficulty = difficulty;
             this.table = new GameTable(tableRows, tableColumns);
         }
 
 		public void update(){
 			Player player = getTurnPlayer(); //Current player
 
-			Position pos = move(player);
+			Position pos = getPlayerMove(player);
            
 			if (this.table.setPos (pos.X, pos.Y)) {
 				//Console.Clear ();
@@ -84,7 +107,7 @@ namespace Minesweeper{
 			} else {
 				//Console.Clear ();
 
-//                MinesweeperForm.playWav();
+//              MinesweeperForm.playWav();
                 this.Table.showBombs ();
            
                 MinesweeperForm.showTableBombs();
@@ -102,7 +125,7 @@ namespace Minesweeper{
 			table.printMatrix();
 
 			//First move
-			Position pos = move (getTurnPlayer());
+			Position pos = getPlayerMove (getTurnPlayer());
 
 			//Console.Clear();
             table.bombFields (pos.Y,pos.Y);
@@ -137,34 +160,15 @@ namespace Minesweeper{
 			}
 		}
 
-        private Position move(Player player){
-
-			bool flag = false;
+        private Position getPlayerMove(Player player){
 			Position pos;
+            pos = player.play (this.Table);
+            if (round % 2 != 0)
+                Thread.Sleep(1000);
 
-			do {
-
-                pos = player.play (this.Table);
-                Console.WriteLine("Esperando o fdp johgar");
-              //try {
-                   
-                    if (((pos.X >= 0 && pos.X < this.table.Rows) && (pos.Y >= 0 && pos.Y < this.table.Columns)) &&
-                        (!this.table.Table[pos.X, pos.Y].Visited)){
-
-                        if (round % 2 != 0) 
-                            Thread.Sleep(1000);
-                        flag = true;
-                     }
-               // }catch(Exception ex){
-                      //Console.WriteLine(ex.Message);
-              //}
-            } while(!flag);
-            
-			this.round += 1;
-
+            this.round += 1;
 			return pos;
 		}
-        
     }
 }
 

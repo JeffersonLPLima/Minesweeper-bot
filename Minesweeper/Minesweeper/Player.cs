@@ -33,5 +33,23 @@ namespace Minesweeper{
         }
 
 		abstract public Position play (GameTable gameTable);
+        
+        public void randomPlay(GameTable table)
+        {
+            Position pos;
+            bool flag = false;
+            while (!flag)
+            {
+                pos = new Position(RandomUtil.GetRandomNumber(0, table.Rows), RandomUtil.GetRandomNumber(0, table.Columns));
+                if (!table.Table[pos.X, pos.Y].Visited)
+                {
+
+                    LastPosition = pos;
+                    play(table);
+                    flag = true;
+                }
+            }
+
+        }
     }
 }
