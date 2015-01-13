@@ -6,6 +6,5 @@ namespace Minesweeper{
         static void Main(string[] args){
              Forms.Forms.RunForms();
          }
-
     }
 }

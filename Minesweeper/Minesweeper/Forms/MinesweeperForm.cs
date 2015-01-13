@@ -13,18 +13,18 @@ namespace Minesweeper{
         /// <summary>
         /// Image Locations
         /// </summary>
-        private static String noDesmImg = "Forms/Images/casaInativa.JPG";
-        private static String noMarcImg = "Forms/Images/casaAtiva.JPG";
-        private static String Img1 = "Forms/Images/1.JPG";
-        private static String Img2 = "Forms/Images/2.JPG";
-        private static String Img3 = "Forms/Images/3.JPG";
-        private static String Img4 = "Forms/Images/4.JPG";
-        private static String Img5 = "Forms/Images/5.JPG";
-        private static String Img6 = "Forms/Images/6.JPG";
-        private static String Img7 = "Forms/Images/7.JPG";
-        private static String Img8 = "Forms/Images/8.JPG";
-        private static String mineImg = "Forms/Images/mine.JPG";
-        private static String flagImg = "Forms/Images/flag.JPG";
+        private const String noDesmImg = "Forms/Images/casaInativa.JPG";
+        private const String noMarcImg = "Forms/Images/casaAtiva.JPG";
+        private const String Img1 = "Forms/Images/1.JPG";
+        private const String Img2 = "Forms/Images/2.JPG";
+        private const String Img3 = "Forms/Images/3.JPG";
+        private const String Img4 = "Forms/Images/4.JPG";
+        private const String Img5 = "Forms/Images/5.JPG";
+        private const String Img6 = "Forms/Images/6.JPG";
+        private const String Img7 = "Forms/Images/7.JPG";
+        private const String Img8 = "Forms/Images/8.JPG";
+        private const String mineImg = "Forms/Images/mine.JPG";
+        private const String flagImg = "Forms/Images/flag.JPG";
 
         private static int timeRemaining;
         private static bool firstClick;
@@ -39,7 +39,6 @@ namespace Minesweeper{
         /// <param name="difficulty"></param>
         /// <param name="name"></param>
         /// <param name="whoBegins"></param>
-
         public MinesweeperForm(byte difficulty, String name, byte whoBegins){
             CheckForIllegalCrossThreadCalls = false;
 
@@ -124,7 +123,7 @@ namespace Minesweeper{
         }
 
         /// <summary>
-        /// Loag Table Form
+        /// Load Table Form
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

@@ -54,7 +54,6 @@ namespace Minesweeper{
         /// <param name="player1">Player name</param>
         /// <param name="tableRows">Table rows.</param>
         /// <param name="tableColumns">Table columns.</param>
-
         public Game(String player1, byte difficulty, byte whoBegins){
             int tableRows ;
             int tableColumns;
@@ -79,47 +78,36 @@ namespace Minesweeper{
             this.table = new GameTable(tableRows, tableColumns);
         }
 
+        /// <summary>
+        /// Update the Game
+        /// </summary>
 		public void update(){
 			Player player = getTurnPlayer(); //Current player
 
 			Position pos = getPlayerMove(player);
            
 			if (this.table.setPos (pos.X, pos.Y)) {
-				//Console.Clear ();
+                // Safe position
 				Console.WriteLine ("Ultima posicao jogada = X: "+pos.X+" Y: "+pos.Y);
-                
-
-                //this.Table.printMatrix ();
                 MinesweeperForm.updateTable();
-
-                //Console.WriteLine("Update 2");
-                
 
 				if(table.NodesRemaining == 0){
 					Console.WriteLine ("Empate");
-					Console.WriteLine ("Pressione qualquer tecla para continuar");
-					//Console.ReadLine ();
-
 					this.Table.showBombs ();
                     MinesweeperForm.showTableBombs();
                     active = false;
 				}
-			} else {
-				//Console.Clear ();
-
-//              MinesweeperForm.playWav();
+			}else {
                 this.Table.showBombs ();
-           
                 MinesweeperForm.showTableBombs();
-                //Console.WriteLine("Atualiza");
-               // Console.Read();
-               // MinesweeperForm.updateTable();
 				Console.WriteLine ("Voce perdeu "+player.Name+"!");
 				active = false;
 			}
-
 		}
 
+        /// <summary>
+        /// Initialize the Game
+        /// </summary>
 		public void initialize(){
 			//Initial table
 			table.printMatrix();
@@ -127,19 +115,19 @@ namespace Minesweeper{
 			//First move
 			Position pos = getPlayerMove (getTurnPlayer());
 
-			//Console.Clear();
+            // Fills the matrix with bombs after the first move
             table.bombFields (pos.Y,pos.Y);
 			table.setNodeKeys ();
 			table.expand(table.Table[pos.X, pos.Y]);
 
 			table.printMatrix();
-            //Console.WriteLine("Novo Tabuleiro");
 
             MinesweeperForm.updateTable();
-           
-			
 		}
 
+        /// <summary>
+        /// Run the Game
+        /// </summary>
 		public void run(){
             active = true;
 			initialize ();
@@ -152,6 +140,10 @@ namespace Minesweeper{
 	        }
 		}
 
+        /// <summary>
+        /// Gets the turn player
+        /// </summary>
+        /// <returns>The turn player</returns>
 		public Player getTurnPlayer(){
 			if (round % 2 == 0) {
 				return player1;	
@@ -160,6 +152,11 @@ namespace Minesweeper{
 			}
 		}
 
+        /// <summary>
+        /// Gets the player move
+        /// </summary>
+        /// <returns>The player move</returns>
+        /// <param name="player">Player</param>
         private Position getPlayerMove(Player player){
 			Position pos;
             pos = player.play (this.Table);

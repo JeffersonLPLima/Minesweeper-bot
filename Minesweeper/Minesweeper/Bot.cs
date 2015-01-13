@@ -7,38 +7,43 @@ namespace Minesweeper{
         public Bot(String name, int rows, int columns): base(name, rows, columns){
         }
 
+        /// <summary>
+        /// Main function to perform the best move
+        /// </summary>
+        /// <param name="table">Table.</param>
         public override Position play(GameTable table){
             this.bombsVisible(table); // 1-FN
 
             this.printMatrixBombs();
 
             Position pos = getInferredPosition(table); //2-FN
-
             if (pos == null){
                 return getBestGuess(table); // 3-FN
             }
 
             Console.WriteLine ("Bot Jogou na posicao X:"+pos.X+", Y: "+pos.Y);
-
             return pos;
         }
 
+        /// <summary>
+        /// Prints the bombs marked
+        /// </summary>
         public void printMatrixBombs(){
             Console.WriteLine("======== Campo Minado ========");
             Console.Write("  ]");
 
-            for (int j = 0; j < this.gameTableBombsFound.Columns; j++){
+            for (int j = 0; j < this.tableBombsFound.Columns; j++){
                 Console.Write("| " + (j%10) + " |");
             }
             Console.WriteLine();
 
-            for (int i = 0; i < this.gameTableBombsFound.Rows; i++){   
+            for (int i = 0; i < this.tableBombsFound.Rows; i++){   
                 if(i<10){
                     Console.Write ("0");
                 }
                 Console.Write(i + "]");
-                for (int j = 0; j < this.gameTableBombsFound.Columns; j++){
-                    if (this.gameTableBombsFound.Table[i, j].Key == 10){
+                for (int j = 0; j < this.tableBombsFound.Columns; j++){
+                    if (this.tableBombsFound.Table[i, j].Key == 10){
                         Console.Write("| * |");
                     }
                     else{
@@ -66,13 +71,12 @@ namespace Minesweeper{
                         if (neighborhoodVisible.Count > 0){
                             if (node.Key == neighborhoodVisible.Count){
                                 for (int k = 0; k < neighborhoodVisible.Count; k++){
-                                    Position p = new Position (i, j);
                                     //Get neighborhood position
                                     Position posBomb = node.getNeighborhoodPosition(neighborhoodVisible[k], new Position(i, j));
 
                                     if (posBomb != null){
                                         //Bomb found
-                                        this.gameTableBombsFound.Table[posBomb.X, posBomb.Y].Key = 10;
+                                        this.tableBombsFound.Table[posBomb.X, posBomb.Y].Key = 10;
                                         this.bombsFound += 1;
                                     }
                                 }
@@ -89,7 +93,7 @@ namespace Minesweeper{
         /// <returns>Count of marked bombs.</returns>
         /// <param name="pos">Position.</param>
         private int getMarkedBombs(Position pos){
-            Node node = this.gameTableBombsFound.Table[pos.X, pos.Y];
+            Node node = this.tableBombsFound.Table[pos.X, pos.Y];
             int bombs = 0;
 
             for (int i = 0; i < node.Neighborhood.Count; i++){
@@ -116,7 +120,7 @@ namespace Minesweeper{
                         int markedBombs = getMarkedBombs(new Position(i, j));
 
                         if (markedBombs == currentNode.Key && currentNode.getNeighborhoodVisible().Count > currentNode.Key){
-                            Node node = this.gameTableBombsFound.Table[i, j];
+                            Node node = this.tableBombsFound.Table[i, j];
 
                             for (int k = 0; k < node.Neighborhood.Count; k++){
 
@@ -168,7 +172,7 @@ namespace Minesweeper{
                     Position posBomb = new Position (i, j);
 
                     //Marked position with bomb
-                    if (this.gameTableBombsFound.Table [i, j].Key == 10) {
+                    if (this.tableBombsFound.Table [i, j].Key == 10) {
                         probBomb = 100;
                         node.ProbBomb = probBomb;
                     }else if (node.Visited) {
@@ -197,7 +201,7 @@ namespace Minesweeper{
 
                                         // Updates the probability to contain a bomb
                                         table.Table [posN.X, posN.Y].ProbBomb = probBomb;
-
+                                        Console.WriteLine ("Atualizou posição X: "+posN.X+",Y: "+posN.Y);
                                         if (table.Table [posN.X, posN.Y].ProbBomb < bestProbBomb) {
                                             bestPosBomb = posN; // Lower probability to contain bombs
                                             bestProbBomb = probBomb; // Position with lower probability

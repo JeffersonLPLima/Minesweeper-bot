@@ -40,6 +40,9 @@ namespace Minesweeper{
             this.neighborhood = new List<Node>();
         }
 
+        /// <summary>
+        /// Counts the adjacent bombs to this node
+        /// </summary>
         public void countBombs(){
             int bombs = 0;
 
@@ -54,6 +57,10 @@ namespace Minesweeper{
             }
         }
 
+        /// <summary>
+        /// Gets a list of not yet visited Nodes
+        /// </summary>
+        /// <returns>The neighborhood visible.</returns>
 		public List<Node> getNeighborhoodVisible(){
 			List<Node> neighborhoodVisible = new List<Node>();
 
@@ -65,6 +72,12 @@ namespace Minesweeper{
 			return neighborhoodVisible;
 		}
 
+        /// <summary>
+        /// Gets the adjacent node position.
+        /// </summary>
+        /// <returns>The neighborhood position.</returns>
+        /// <param name="adjacent">Adjacent.</param>
+        /// <param name="pos">Position.</param>
         public Position getNeighborhoodPosition(Node adjacent, Position pos){
             if (this.neighborhood [0] != null && this.neighborhood[0].Equals (adjacent)) {
                 return new Position (pos.X - 1, pos.Y - 1);

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Minesweeper{
     public class GameTable{
@@ -42,11 +40,13 @@ namespace Minesweeper{
             this.columns = columns;
             this.table = new Node[rows, columns];
 
+            // Instantiates the node matrix
             for (int i = 0; i < rows; i++){
                 for (int j = 0; j < columns; j++){
                     this.table[i,j] = new Node();          
                 }
             }
+
 
             for (int i = 0; i < rows; i++){
 				for (int j = 0; j < columns; j++){
@@ -73,6 +73,9 @@ namespace Minesweeper{
 
         }
 
+        /// <summary>
+        /// Sets key for each node at the matrix
+        /// </summary>
         public void setNodeKeys() {
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
@@ -81,6 +84,9 @@ namespace Minesweeper{
             }
         }
 
+        /// <summary>
+        /// Prints the atual state of the matrix on the Console
+        /// </summary>
         public void printMatrix(){
 			Console.WriteLine ("======== Campo Minado ========");
 			Console.Write ("  ]");
@@ -105,13 +111,18 @@ namespace Minesweeper{
             }
         }
 
+        /// <summary>
+        /// Fills the fields with bombs.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
         public void bombFields(int x, int y){
             int randomNumberRows;
             int randomNumberColumns;
 
             for(int i = 0; i<bombs; i++){
 				bool flag = false;
-				while(flag == false){
+				while(!flag){
 					randomNumberRows = RandomUtil.GetRandomNumber (0, Rows);
 					randomNumberColumns = RandomUtil.GetRandomNumber (0, Columns);
 
@@ -124,20 +135,25 @@ namespace Minesweeper{
             }
         }
 
+        /// <summary>
+        /// Expands the move on the board
+        /// </summary>
+        /// <param name="node">Node.</param>
         public void expand(Node node) {
             if (node != null && !node.Visited) {
                 node.Visited = true;
 				this.nodesRemaining -= 1;
                 if(node.Key==0){
                     for (int i = 0; i < node.Neighborhood.Count; i++) {
-                        
                         expand(node.Neighborhood[i]);
                     }
-
                 }
             }
         }
 
+        /// <summary>
+        /// Shows the bombs on Console
+        /// </summary>
         public void showBombs(){
 			Console.WriteLine ("======== Campo Minado ========");
             for (int i = 0; i < rows; i++){
@@ -158,6 +174,12 @@ namespace Minesweeper{
             }
         }
 
+        /// <summary>
+        /// Sets the move position on the board
+        /// </summary>
+        /// <returns><c>true</c>, if position was set, <c>false</c> otherwise.</returns>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
 		public bool setPos(int x, int y){
 			if (this.table[x, y].Key != 10) {
 				this.expand(this.table[x,y]);

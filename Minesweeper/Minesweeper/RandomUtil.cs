@@ -14,7 +14,10 @@ namespace Minesweeper{
         /// a random number between in interval [min,max)
         /// </returns>
         public static int GetRandomNumber(int min, int max){
-			lock(syncLock) { // synchronize
+            // This ensures that one thread does not enter a critical section of code while another thread 
+            // is in the critical section. If another thread tries to enter a locked code, it will wait, block, 
+            // until the object is released.
+            lock(syncLock) { // synchronize
 				return getRandom.Next(min, max);
 			}
 		}

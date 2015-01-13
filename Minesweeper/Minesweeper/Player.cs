@@ -8,7 +8,7 @@ namespace Minesweeper{
         private String name;
         private Position lastPosition;
 		protected int bombsFound;
-        protected GameTable gameTableBombsFound;
+        protected GameTable tableBombsFound;
 
         /// <summary>
         /// Player Constructor
@@ -19,7 +19,7 @@ namespace Minesweeper{
 		public Player(String name, int rows, int columns){
             LastPosition = new Position(0, 0);
 			this.name = name;
-            this.gameTableBombsFound = new GameTable(rows, columns);
+            this.tableBombsFound = new GameTable(rows, columns);
 		}
 
         public Position LastPosition{
@@ -33,23 +33,24 @@ namespace Minesweeper{
         }
 
 		abstract public Position play (GameTable gameTable);
-        
-        public void randomPlay(GameTable table)
-        {
+
+        /// <summary>
+        /// Performs a move in a random position
+        /// </summary>
+        /// <param name="table">Table.</param>
+        public void randomPlay(GameTable table){
             Position pos;
             bool flag = false;
-            while (!flag)
-            {
+            while (!flag){
                 pos = new Position(RandomUtil.GetRandomNumber(0, table.Rows), RandomUtil.GetRandomNumber(0, table.Columns));
-                if (!table.Table[pos.X, pos.Y].Visited)
-                {
-
+                if (!table.Table[pos.X, pos.Y].Visited){
+                    // Position not yet visited
                     LastPosition = pos;
+
                     play(table);
                     flag = true;
                 }
             }
-
         }
     }
 }
